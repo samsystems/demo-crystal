@@ -1,14 +1,15 @@
-import { NgModule } from '@angular/core';
-import { DropdownModule } from 'ng2-bootstrap/dropdown';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {DashboardRoutesModule} from './dashboard.routes';
 
-import { DashboardComponent } from './dashboard.component';
-import { DashboardRoutingModule } from './dashboard-routing.module';
+import {DashboardComponent} from './components/dashboard/dashboard.component';
 
 @NgModule({
   imports: [
-    DashboardRoutingModule,
-    DropdownModule
+    CommonModule,
+    DashboardRoutesModule
   ],
-  declarations: [ DashboardComponent ]
+  declarations: [DashboardComponent]
 })
-export class DashboardModule { }
+export class DashboardModule {
+}
