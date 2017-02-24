@@ -6,6 +6,7 @@ import {BaseLayoutComponent} from './components/base-layout/base-layout.componen
 import {NavigationComponent} from './components/navigation/navigation.component';
 import {TopnavbarComponent} from './components/topnavbar/topnavbar.component';
 import {BlankLayoutComponent} from './components/blank-layout/blank-layout.component';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   imports: [
@@ -16,7 +17,8 @@ import {BlankLayoutComponent} from './components/blank-layout/blank-layout.compo
     BaseLayoutComponent,
     NavigationComponent,
     TopnavbarComponent,
-    BlankLayoutComponent
+    BlankLayoutComponent,
+    LoginComponent
   ],
   exports: [
     BaseLayoutComponent,

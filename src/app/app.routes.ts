@@ -3,6 +3,8 @@ import {Routes, RouterModule} from '@angular/router';
 
 // Layouts
 import {BaseLayoutComponent} from './core/components/base-layout/base-layout.component';
+import {BlankLayoutComponent} from './core/components/blank-layout/blank-layout.component';
+import {LoginComponent} from './core/components/login/login.component';
 
 export const routes: Routes = [
   {
@@ -38,20 +40,17 @@ export const routes: Routes = [
        loadChildren: './chartjs/chartjs.module#ChartJSModule'
        }*/
     ]
-  }/*,
-   {
-   path: 'pages',
-   component: SimpleLayoutComponent,
-   data: {
-   title: 'Pages'
-   },
-   children: [
-   {
-   path: '',
-   loadChildren: './pages/pages.module#PagesModule',
-   }
-   ]
-   }*/
+  },
+  {
+    path: 'security',
+    component: BlankLayoutComponent,
+    children: [
+      {
+        path: 'login',
+        component: LoginComponent
+      }
+    ]
+  }
 ];
 
 @NgModule({
