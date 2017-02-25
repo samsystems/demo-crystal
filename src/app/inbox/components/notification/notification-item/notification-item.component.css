@@ -1,0 +1,33 @@
+.notification{
+  background-color: white;
+  padding:  15px 15px 15px 0;
+  border-bottom: 1px solid darkgray;
+  cursor: pointer;
+}
+
+.notification.read{
+  background-color: white;
+}
+
+.notification.unread{
+  background-color: rgb(244, 242, 242);
+}
+
+
+.notif-header > .title{
+  padding: 5px;
+}
+
+.notif-header > .type{
+  color: green;
+  padding: 5px;
+}
+
+.notif-header > .date{
+  color: gray;
+  padding: 5px;
+}
+
+.notif-body{
+  margin-top: 10px;
+}

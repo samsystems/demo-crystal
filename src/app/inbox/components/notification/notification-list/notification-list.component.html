@@ -1,0 +1,12 @@
+<div class="wrapper wrapper-content">
+  <div class="row">
+    <div class="col-lg-5">
+      <div class="notification-content">
+        <app-notification-item (selectItem)="showDetails($event)" [item]="notification" *ngFor="let notification of notifications"></app-notification-item>
+      </div>
+    </div>
+    <div class="col-lg-7">
+      <app-notification-item-detail *ngIf="selectedNotification" [item]="selectedNotification"></app-notification-item-detail>
+    </div>
+  </div>
+</div>
