@@ -22,6 +22,10 @@ export const routes: Routes = [
       {
         path: 'dashboard',
         loadChildren: './dashboard/dashboard.module#DashboardModule'
+      },
+      {
+        path: 'file-manager',
+        loadChildren: './document-manager/document-manager.module#DocumentManagerModule'
       }
       /*{
        path: 'components',
