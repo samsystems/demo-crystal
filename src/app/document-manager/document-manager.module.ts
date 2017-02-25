@@ -6,6 +6,9 @@ import {FileUploadModule} from 'ng2-file-upload';
 
 import {FileManagerComponent} from './components/file-manager/file-manager.component';
 import {DocumentDetailComponent} from './components/document-detail/document-detail.component';
+import {DocumentService} from './services/document.service';
+import {DocumentDetailFlowComponent} from './components/document-detail-flow/document-detail-flow.component';
+import { DocumentDetailReleaseComponent } from './components/document-detail-release/document-detail-release.component';
 
 @NgModule({
   imports: [
@@ -15,7 +18,8 @@ import {DocumentDetailComponent} from './components/document-detail/document-det
     ModalModule.forRoot(),
     FileUploadModule
   ],
-  declarations: [FileManagerComponent, DocumentDetailComponent]
+  declarations: [FileManagerComponent, DocumentDetailComponent, DocumentDetailFlowComponent, DocumentDetailReleaseComponent],
+  providers: [DocumentService]
 })
 export class DocumentManagerModule {
 }
