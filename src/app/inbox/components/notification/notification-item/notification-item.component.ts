@@ -4,7 +4,7 @@ import {Notification, NotificationState} from "../../../shared/models/notificati
 @Component({
   selector: 'app-notification-item',
   templateUrl: 'notification-item.component.html',
-  styleUrls: ['notification-item.component.css']
+  styleUrls: ['notification-item.component.scss']
 })
 export class NotificationItemComponent implements OnInit {
   @Input('item') notification: Notification;

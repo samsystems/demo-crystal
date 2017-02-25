@@ -1,0 +1,37 @@
+.notification {
+  background-color: white;
+  padding: 15px 15px 15px 0;
+  border-bottom: 1px solid darkgray;
+  cursor: pointer;
+
+  &.read {
+    background-color: white;
+  }
+
+  &.unread {
+    background-color: #f4f2f2;
+  }
+
+  .notif-header {
+
+    .title {
+      padding: 5px;
+    }
+
+    .type {
+      color: green;
+      padding: 5px;
+    }
+
+    .date {
+      color: gray;
+      padding: 5px;
+    }
+
+  }
+
+  .notif-body {
+    margin-top: 10px;
+  }
+
+}
