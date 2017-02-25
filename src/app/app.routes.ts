@@ -9,22 +9,19 @@ import {LoginComponent} from './core/components/login/login.component';
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'inbox',
-    pathMatch: 'full',
+    redirectTo: 'home',
+    pathMatch: 'full'
   },
   {
     path: '',
     component: BaseLayoutComponent,
-    data: {
-      title: 'Home'
-    },
     children: [
       {
-        path: 'inbox',
-        loadChildren: './inbox/inbox.module#InboxModule'
+        path: 'home',
+        loadChildren: './main/main.module#MainModule'
       },
       {
-        path: 'file-manager',
+        path: 'briefcase',
         loadChildren: './document-manager/document-manager.module#DocumentManagerModule'
       }
       /*{

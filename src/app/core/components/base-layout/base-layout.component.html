@@ -1,37 +1,10 @@
-<!-- Wrapper-->
-<div id="wrapper">
-
-  <!-- Left navigation bar -->
-  <navigation></navigation>
-
-  <!-- Main page wrapper -->
-  <div id="page-wrapper" class="gray-bg">
-
-    <!-- Top navigation -->
-    <topnavbar></topnavbar>
-
-    <div class="row wrapper border-bottom white-bg page-heading">
-      <div class="col-lg-9">
-        <h2>File Manager</h2>
-        <ol class="breadcrumb">
-          <li>
-            <a href="index.html">Home</a>
-          </li>
-          <li>
-            App Views
-          </li>
-          <li class="active">
-            <strong>File Manager</strong>
-          </li>
-        </ol>
+<div class="top-navigation  pace-done">
+  <div id="wrapper">
+    <div id="page-wrapper" class="gray-bg">
+      <app-navigation></app-navigation>
+      <div class="wrapper-content">
+        <router-outlet></router-outlet>
       </div>
     </div>
-
-    <!-- Main view/routes wrapper-->
-    <router-outlet></router-outlet>
-
   </div>
-  <!-- End page wrapper-->
-
 </div>
-<!-- End wrapper-->

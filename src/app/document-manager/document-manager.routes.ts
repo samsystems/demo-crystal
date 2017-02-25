@@ -1,15 +1,16 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
-import {FileManagerComponent} from './components/file-manager/file-manager.component';
-import {DocumentDetailComponent} from './components/document-detail/document-detail.component';
+import {BriefcaseComponent} from './components/briefcase/briefcase.component';
+import {UploadComponent} from './components/upload/upload.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: FileManagerComponent
-  }, {
-    path: 'detail',
-    component: DocumentDetailComponent
+    component: BriefcaseComponent
+  },
+  {
+    path: 'upload',
+    component: UploadComponent
   }
 ];
 
