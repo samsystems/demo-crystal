@@ -2,7 +2,7 @@
   background-color: white;
   padding: 15px 15px 15px 0;
   border-bottom: 1px solid darkgray;
-  cursor: pointer;
+  border-left: 3px solid #f4f2f2;
 
   &.read {
     background-color: white;
@@ -12,7 +12,13 @@
     background-color: #f4f2f2;
   }
 
-  .notif-header {
+  &.selected{
+    border-left: 3px solid #5ec7b7;
+    background-color: #f9fdfc;
+  }
+
+  .notif-body {
+    cursor: pointer;
 
     .title {
       padding: 5px;
