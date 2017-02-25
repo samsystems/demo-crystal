@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DocumentDetailComponent } from './document-detail.component';
+import { BriefcaseComponent } from './briefcase.component';
 
-describe('DocumentDetailComponent', () => {
-  let component: DocumentDetailComponent;
-  let fixture: ComponentFixture<DocumentDetailComponent>;
+describe('BriefcaseComponent', () => {
+  let component: BriefcaseComponent;
+  let fixture: ComponentFixture<BriefcaseComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DocumentDetailComponent ]
+      declarations: [ BriefcaseComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DocumentDetailComponent);
+    fixture = TestBed.createComponent(BriefcaseComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

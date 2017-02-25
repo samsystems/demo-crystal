@@ -4,11 +4,8 @@ import {DocumentManagerRoutesModule} from './document-manager.routes';
 import {TabsModule, ModalModule} from 'ng2-bootstrap';
 import {FileUploadModule} from 'ng2-file-upload';
 
-import {FileManagerComponent} from './components/file-manager/file-manager.component';
-import {DocumentDetailComponent} from './components/document-detail/document-detail.component';
-import {DocumentService} from './services/document.service';
-import {DocumentDetailFlowComponent} from './components/document-detail-flow/document-detail-flow.component';
-import { DocumentDetailReleaseComponent } from './components/document-detail-release/document-detail-release.component';
+import {UploadComponent} from './components/upload/upload.component';
+import {BriefcaseComponent} from './components/briefcase/briefcase.component';
 
 @NgModule({
   imports: [
@@ -18,8 +15,7 @@ import { DocumentDetailReleaseComponent } from './components/document-detail-rel
     ModalModule.forRoot(),
     FileUploadModule
   ],
-  declarations: [FileManagerComponent, DocumentDetailComponent, DocumentDetailFlowComponent, DocumentDetailReleaseComponent],
-  providers: [DocumentService]
+  declarations: [UploadComponent, BriefcaseComponent]
 })
 export class DocumentManagerModule {
 }
