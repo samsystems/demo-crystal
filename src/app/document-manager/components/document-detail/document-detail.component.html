@@ -250,7 +250,10 @@
                 </div>
               </tab>
               <tab heading='Last activity'>
-                Tab 2 content
+                    <app-document-detail-flow *ngFor="let state of states" [state]="state"></app-document-detail-flow>
+              </tab>
+              <tab heading='Releases'>
+                    <app-document-detail-release *ngFor="let release of releases" [release]="release"></app-document-detail-release>
               </tab>
             </tabset>
           </div>
