@@ -12,5 +12,4 @@ export class TopnavbarComponent {
     jQuery("body").toggleClass("mini-navbar");
     smoothlyMenu();
   }
-
 }
