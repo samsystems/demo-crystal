@@ -1,12 +1,21 @@
-<div class="notification row" [ngClass]="{'read': notification.getState(),'unread': !notification.getState()}">
+<div class="notification row" [ngClass]="{'read': notification.status,'unread': !notification.status}">
   <div class="col-md-1">
-    <input type="checkbox">
+    <!--<div class="icheckbox_square-green" style="position: relative;">-->
+      <input type="checkbox">
+    <!--</div>-->
   </div>
 
   <div class="notif-header col-md-11"  (click)="showDetails()">
+
     <span class="title">{{notification.title}}</span>
-    <span class="type">{{notification.type}}</span>
-    <span class="date">Jan 15</span>
+
+    <span class="type" [ngClass]="'type-' + notification.type.toLowerCase()">{{notification.type}}</span>
+
+    <div class="pull-right">
+      <span class="date">Jan 15</span>
+      <span class="date"><i class="fa fa-star-o"></i></span>
+    </div>
+    <div class="clearfix"></div>
 
     <div class="notif-body">
       Lorem ipsum dolor sit amet, consectetur adipisicing elit. A, asperiores consectetur deserunt ducimus ea itaque

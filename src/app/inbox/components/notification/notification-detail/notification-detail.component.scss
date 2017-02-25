@@ -19,17 +19,39 @@
   .date {
     min-height: 105px;
     background-color: #fbfaf9;
-    padding: 20px 20px 30px 0;
+    padding: 20px 30px 30px 0;
     border-top: 1px solid lightgray;
     border-bottom: 1px solid lightgray;
   }
 
   .content {
     background-color: white;
-    padding: 30px 20px 20px 50px;
+    padding: 30px 30px 20px 50px;
 
     .button-action {
       margin-bottom: 35px;
+
+      span {
+        cursor: pointer;
+        margin-left: 8px;
+        margin-right: 8px;
+
+        &.save {
+          color: #0e9aef;
+        }
+
+        &.publish {
+          border-right: 1px solid lightgray;
+          padding-right: 8px;
+        }
+
+        &.icon {
+          margin: 0;
+          i {
+            font-size: 15px;
+          }
+        }
+      }
     }
 
     .notification-content {

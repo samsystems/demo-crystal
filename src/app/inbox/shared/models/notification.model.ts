@@ -4,17 +4,15 @@ export class Notification {
   constructor(private type: string,
               private title: string,
               private content: string,
-              private state?: NotificationState,
+              private status?: NotificationState,
               private date?: Date) {
     this.date = new Date();
-    this.state = NotificationState.unread;
+    this.status = NotificationState.unread;
   }
 
-  getState(){
-    return this.state;
-  }
+
   setStatus(newState: NotificationState) {
-    this.state = newState;
+    this.status = newState;
   }
 }
 
