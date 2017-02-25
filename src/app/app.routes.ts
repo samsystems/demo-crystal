@@ -9,7 +9,7 @@ import {LoginComponent} from './core/components/login/login.component';
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'dashboard',
+    redirectTo: 'inbox',
     pathMatch: 'full',
   },
   {
@@ -20,8 +20,8 @@ export const routes: Routes = [
     },
     children: [
       {
-        path: 'dashboard',
-        loadChildren: './dashboard/dashboard.module#DashboardModule'
+        path: 'inbox',
+        loadChildren: './inbox/inbox.module#InboxModule'
       }
       /*{
        path: 'components',
