@@ -1,5 +1,5 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
-import {Notification} from "../../../shared/models/notification.model";
+import {Notification, NotificationState} from "../../../shared/models/notification.model";
 
 @Component({
   selector: 'app-notification-item',
@@ -8,14 +8,16 @@ import {Notification} from "../../../shared/models/notification.model";
 })
 export class NotificationItemComponent implements OnInit {
   @Input('item') notification: Notification;
-  @Output() selectItem= new EventEmitter<Notification>();
+  @Output() selectItem = new EventEmitter<Notification>();
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }
 
-  showDetails():void{
+  showDetails(): void {
+    this.notification.setStatus(NotificationState.read);
     this.selectItem.emit(this.notification);
   }
 
