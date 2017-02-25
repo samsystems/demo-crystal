@@ -5,15 +5,15 @@ import {InboxRoutesModule} from './inbox.routes';
 import {InboxComponent} from './components/inbox/inbox.component';
 import { NotificationListComponent } from './components/notification/notification-list/notification-list.component';
 import { NotificationItemComponent } from './components/notification/notification-item/notification-item.component';
-import { NotificationItemDetailComponent } from './components/notification/notification-item-detail/notification-item-detail.component';
-import {NotificationService} from "./shared/services/notification.service";
+import { NotificationDetailComponent } from './components/notification/notification-detail/notification-detail.component';
+import { NotificationService } from "./shared/services/notification.service";
 
 @NgModule({
   imports: [
     CommonModule,
     InboxRoutesModule
   ],
-  declarations: [InboxComponent, NotificationListComponent,NotificationItemComponent, NotificationItemDetailComponent],
+  declarations: [InboxComponent, NotificationListComponent,NotificationItemComponent, NotificationDetailComponent],
   providers: [NotificationService]
 })
 export class InboxModule {

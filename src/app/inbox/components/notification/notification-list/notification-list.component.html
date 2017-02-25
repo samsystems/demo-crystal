@@ -4,7 +4,7 @@
       <app-notification-item (selectItem)="showDetails($event)" [item]="notification" *ngFor="let notification of notifications"></app-notification-item>
     </div>
     <div class="details-container no-padding col-lg-7">
-        <app-notification-item-detail *ngIf="selectedNotification" [item]="selectedNotification"></app-notification-item-detail>
+        <app-notification-detail *ngIf="selectedNotification" [item]="selectedNotification"></app-notification-detail>
     </div>
   </div>
 </div>
