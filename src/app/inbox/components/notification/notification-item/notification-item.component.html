@@ -1,11 +1,12 @@
-<div class="notification row" [ngClass]="{'read': notification.status,'unread': !notification.status}">
+<div class="notification row"
+     [ngClass]="{'selected': selected,'read': notification.status,'unread': !notification.status}">
   <div class="col-md-1">
-    <!--<div class="icheckbox_square-green" style="position: relative;">-->
-      <input type="checkbox">
-    <!--</div>-->
+    <div class="icheckbox_square-green" style="position: relative;">
+      <input type="checkbox" [(ngModel)]="selected">
+    </div>
   </div>
 
-  <div class="notif-header col-md-11"  (click)="showDetails()">
+  <div class="notif-body col-md-11" (click)="showDetails()">
 
     <span class="title">{{notification.title}}</span>
 
