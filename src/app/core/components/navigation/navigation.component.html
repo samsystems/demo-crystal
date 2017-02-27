@@ -1,7 +1,7 @@
 <div class="row border-bottom white-bg">
   <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
     <div class="navbar-header">
-      <a href="" class="navbar-brand">SafetyMS</a>
+      <a routerLink="" class="navbar-brand">SafetyMS</a>
     </div>
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -12,6 +12,19 @@
           <a routerLink="/briefcase"> Briefcase</a>
         </li>
       </ul>
+      <div dropdown class="pull-right m-r-sm font-bold" style="padding: 5px">
+        <a dropdownToggle>
+          <img alt="image" class="img-circle" src="{{user?.avatar}}" height="40px">
+          <span class="text-muted text-xs">{{user?.firstName}} {{user?.lastName}} <b class="caret"></b></span>
+        </a>
+        <ul dropdownMenu role="profile-menu" aria-labelledby="profile-menu">
+          <li>
+            <a (click)="logout()">
+              <i class="fa fa-sign-out"></i> Log out
+            </a>
+          </li>
+        </ul>
+      </div>
       <ul class="nav navbar-top-links navbar-right">
         <li dropdown>
           <a class="count-info" dropdownToggle>
@@ -54,11 +67,6 @@
               </div>
             </li>
           </ul>
-        </li>
-        <li>
-          <a href="login.html">
-            <i class="fa fa-sign-out"></i> Log out
-          </a>
         </li>
       </ul>
     </div>
