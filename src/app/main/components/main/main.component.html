@@ -1,14 +1,23 @@
 <div class="row">
-  <div class="col-lg-3">
+  <div class="col-lg-3 no-padding">
     <div class="ibox float-e-margins">
       <div class="ibox-content mailbox-content">
         <div class="file-manager">
-          <a class="btn btn-block btn-primary" routerLink="/briefcase/upload">New</a>
+          <div dropdown>
+            <a class="btn btn-block btn-primary" dropdownToggle>New<span class="caret"></span></a>
+            <ul dropdownMenu role="menu" aria-labelledby="btn-append-to-body" style="width: 100%">
+              <li role="menuitem"><a class="dropdown-item">Action</a></li>
+              <li role="menuitem"><a class="dropdown-item">Another action</a></li>
+              <li role="menuitem"><a class="dropdown-item">Something else here</a></li>
+              <li class="divider dropdown-divider"></li>
+              <li role="menuitem"><a class="dropdown-item">Separated link</a></li>
+            </ul>
+          </div>
           <div class="space-25"></div>
           <h5>Folders</h5>
           <ul class="folder-list m-b-md" style="padding: 0">
-            <li><a href="home"> <i class="fa fa-inbox "></i> Inbox <span
-              class="label label-warning pull-right">16</span>
+            <li><a href="home"> <i class="fa fa-inbox "></i> Inbox
+              <span class="label label-warning pull-right">16</span>
             </a></li>
             <li><a href="/starred"> <i class="fa fa-star-o"></i> Starred</a></li>
             <li><a href="/draft"> <i class="fa fa-file-text-o"></i> Drafts <span
@@ -16,32 +25,38 @@
             <li><a href="mailbox.html"> <i class="fa fa-trash-o"></i> Pending Approval</a></li>
             <li><a href="mailbox.html"> <i class="fa fa-trash-o"></i> Approved</a></li>
           </ul>
-          <h5>Categories</h5>
+          <h5>Tasks</h5>
           <ul class="category-list" style="padding: 0">
-            <li><a href="#"> <i class="fa fa-circle text-navy"></i> Work </a></li>
-            <li><a href="#"> <i class="fa fa-circle text-danger"></i> Documents</a></li>
-            <li><a href="#"> <i class="fa fa-circle text-primary"></i> Social</a></li>
-            <li><a href="#"> <i class="fa fa-circle text-info"></i> Advertising</a></li>
-            <li><a href="#"> <i class="fa fa-circle text-warning"></i> Clients</a></li>
+            <li><a href="#"> <i class="fa fa-circle text-navy"></i>My Task
+              <span class="label label-info pull-right">1</span>
+            </a></li>
+            <li><a href="#"> <i class="fa fa-circle text-danger"></i>My Audits</a></li>
+            <li><a href="#"> <i class="fa fa-circle text-primary"></i>My Primary Responsibilities</a></li>
+            <li><a href="#"> <i class="fa fa-circle text-info"></i>Non-Conformances</a></li>
+            <li><a href="#"> <i class="fa fa-circle text-warning"></i>Regulations for my Department</a></li>
+            <li><a href="#"> <i class="fa fa-circle text-warning"></i>Company policies</a></li>
+            <li><a href="#"> <i class="fa fa-circle text-warning"></i>General regulations</a></li>
+            <li><a href="#"> <i class="fa fa-circle text-info"></i>Others misc</a></li>
           </ul>
 
           <h5 class="tag-title">Labels</h5>
           <ul class="tag-list" style="padding: 0">
-            <li><a href=""><i class="fa fa-tag"></i> Family</a></li>
-            <li><a href=""><i class="fa fa-tag"></i> Work</a></li>
-            <li><a href=""><i class="fa fa-tag"></i> Home</a></li>
-            <li><a href=""><i class="fa fa-tag"></i> Children</a></li>
-            <li><a href=""><i class="fa fa-tag"></i> Holidays</a></li>
-            <li><a href=""><i class="fa fa-tag"></i> Music</a></li>
-            <li><a href=""><i class="fa fa-tag"></i> Photography</a></li>
-            <li><a href=""><i class="fa fa-tag"></i> Film</a></li>
+            <li><a href=""><i class="fa fa-tag"></i> Bridge <span class="badge">42</span></a></li>
+            <li><a href=""><i class="fa fa-tag"></i> Company requirements <span class="badge">2</span></a></li>
+            <li><a href=""><i class="fa fa-tag"></i> Bridge <span class="badge">42</span></a></li>
+            <li><a href=""><i class="fa fa-tag"></i> Company requirements <span class="badge">2</span></a></li>
+            <li><a href=""><i class="fa fa-tag"></i> Company requirements <span class="badge">2</span></a></li>
+            <li><a href=""><i class="fa fa-tag"></i> Bridge <span class="badge">42</span></a></li>
+            <li><a href=""><i class="fa fa-tag"></i> Company requirements <span class="badge">2</span></a></li>
+            <li><a href=""><i class="fa fa-tag"></i> Bridge <span class="badge">42</span></a></li>
+            <li><a href=""><i class="fa fa-tag"></i> Company requirements <span class="badge">2</span></a></li>
           </ul>
           <div class="clearfix"></div>
         </div>
       </div>
     </div>
   </div>
-  <div class="col-lg-9">
+  <div class="col-lg-9 no-padding">
     <router-outlet></router-outlet>
   </div>
 </div>
