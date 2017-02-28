@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DropdownModule, ModalModule, ButtonsModule} from 'ng2-bootstrap';
-import {NgUploaderModule} from 'ngx-uploader';
+import {FileUploadModule} from 'ng2-file-upload';
 import {FormsModule} from '@angular/forms';
 
 import {MainRoutesModule} from './main.routes';
@@ -18,7 +18,7 @@ import {SharedModule} from '../shared/shared.module';
     DropdownModule.forRoot(),
     ModalModule.forRoot(),
     ButtonsModule.forRoot(),
-    NgUploaderModule
+    FileUploadModule
   ],
   declarations: [MainComponent, InboxComponent]
 })

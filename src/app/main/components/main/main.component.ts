@@ -1,5 +1,5 @@
 import {Component, NgZone, Inject, OnInit} from '@angular/core';
-import {NgUploaderOptions} from 'ngx-uploader';
+import { FileUploader } from 'ng2-file-upload';
 
 @Component({
   selector: 'app-main',
@@ -7,33 +7,22 @@ import {NgUploaderOptions} from 'ngx-uploader';
   styleUrls: ['./main.component.css']
 })
 export class MainComponent implements OnInit {
-  options: NgUploaderOptions;
-  response: any;
-  hasBaseDropZoneOver: boolean;
+  public uploader:FileUploader = new FileUploader({url: ''});
+  public hasBaseDropZoneOver:boolean = false;
+  public hasAnotherDropZoneOver:boolean = false;
   action: string = 'write';
 
-  constructor(@Inject(NgZone) private zone: NgZone) {
+  constructor() {
   }
 
   ngOnInit() {
-    this.options = new NgUploaderOptions({
-      url: 'http://api.ngx-uploader.com/upload',
-      calculateSpeed: true
-    });
   }
 
-  handleUpload(data: any) {
-    setTimeout(() => {
-      this.zone.run(() => {
-        this.response = data;
-        if (data && data.response) {
-          this.response = JSON.parse(data.response);
-        }
-      });
-    });
-  }
-
-  fileOverBase(e: boolean) {
+  public fileOverBase(e:any):void {
     this.hasBaseDropZoneOver = e;
+  }
+
+  public fileOverAnother(e:any):void {
+    this.hasAnotherDropZoneOver = e;
   }
 }
