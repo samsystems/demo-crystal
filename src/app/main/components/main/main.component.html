@@ -79,14 +79,12 @@
         </div>
         <doc-editor *ngIf="action == 'write'"></doc-editor>
         <div *ngIf="action != 'write'" class="dropzone dz-clickable text-center m"
-             ngFileDrop
-             [options]="options"
-             (onUpload)="handleUpload($event)"
-             [ngClass]="{'file-over': hasBaseDropZoneOver}"
-             (onFileOver)="fileOverBase($event)">
+             ng2FileDrop
+             [ngClass]="{'nv-file-over': hasBaseDropZoneOver}"
+             (fileOver)="fileOverBase($event)">
           <label>
             <h1>Drag & Drop</h1>
-            <input type="file" class="hidden" ngFileSelect [options]="options" (onUpload)="handleUpload($event)">
+            <input type="file" class="hidden" ng2FileSelect [uploader]="uploader">
             Browse
           </label>
         </div>

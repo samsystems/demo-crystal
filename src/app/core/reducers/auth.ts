@@ -19,14 +19,14 @@ export function reducer(state = initialState, action: auth.Actions): State {
   switch (action.type) {
 
     case auth.ActionTypes.LOGIN_FAIL: {
-      const errors = action.payload;
+      const errors = action['payload'];
       return Object.assign({}, state, {
         errors: errors
       });
     }
 
     case auth.ActionTypes.AUTHENTICATE: {
-      const user = action.payload;
+      const user = action['payload'];
       return Object.assign({}, initialState, {
         authenticated: true,
         user: user

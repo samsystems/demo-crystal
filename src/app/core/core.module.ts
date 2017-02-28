@@ -12,6 +12,7 @@ import {LoginComponent} from './components/login/login.component';
 import {AuthService} from './services/auth.service';
 import {AuthGuard} from './guards/auth-guard';
 import {AuthEffects} from './effects/auth';
+import {DatabaseService} from './services/database.service';
 
 @NgModule({
   imports: [
@@ -29,7 +30,8 @@ import {AuthEffects} from './effects/auth';
   ],
   providers: [
     AuthService,
-    AuthGuard
+    AuthGuard,
+    DatabaseService
   ]
 })
 export class CoreModule {

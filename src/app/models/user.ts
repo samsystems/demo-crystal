@@ -1,4 +1,5 @@
 import * as _ from 'lodash';
+import {Rank} from './rank';
 
 export class User {
   username: string;
@@ -8,6 +9,8 @@ export class User {
   lastName: string;
 
   avatar: string;
+
+  rank: Rank;
 
   constructor(_username) {
     this.username = _username;
