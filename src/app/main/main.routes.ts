@@ -10,6 +10,9 @@ const routes: Routes = [
     children: [{
       path: '',
       component: InboxComponent,
+    }, {
+      path: 'document',
+      loadChildren: '../document-manager/document-manager.module#DocumentManagerModule'
     }]
   }
 ];

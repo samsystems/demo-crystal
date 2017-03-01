@@ -1,16 +1,15 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 import {BriefcaseComponent} from './components/briefcase/briefcase.component';
-import {UploadComponent} from './components/upload/upload.component';
+import {CreateDocComponent} from './components/create-doc/create-doc.component';
 
 const routes: Routes = [
   {
     path: '',
     component: BriefcaseComponent
-  },
-  {
-    path: 'upload',
-    component: UploadComponent
+  }, {
+    path: 'create',
+    component: CreateDocComponent
   }
 ];
 
