@@ -17,7 +17,6 @@ declare const tinymce: any;
 })
 export class DocEditorComponent implements ControlValueAccessor, AfterViewInit, OnDestroy {
   @ViewChild('editor') element: ElementRef;
-  @Output() onEditorKeyup = new EventEmitter<any>();
 
   private editor;
   private text: string = '';
@@ -28,7 +27,7 @@ export class DocEditorComponent implements ControlValueAccessor, AfterViewInit, 
     tinymce.init({
       selector: `${this.element.nativeElement.type}[${this.element.nativeElement.attributes[0].name}]`,
       plugins: ['link', 'paste', 'table'],
-      skin_url: 'assets/skins/custom',
+      skin_url: '/assets/skins/custom',
       setup: editor => {
         this.editor = editor;
         editor.on('keyup', () => {

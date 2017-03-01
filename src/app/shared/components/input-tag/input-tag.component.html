@@ -1,0 +1,8 @@
+<div class="bootstrap-tagsinput">
+  <span class="tag label label-primary" style="display: inline-block; padding: 5px 10px" *ngFor="let tag of tags">
+    {{tag}}
+    <span data-role="remove" (click)="removeTag(tag)"></span>
+  </span>
+  <!--<input type="text"  size="1">-->
+  <input #input placeholder="New tag" type="text" size="{{size}}" (keyup)="syncSize()" (keyup.enter)="addTag()" style="min-width: 65px;">
+</div>

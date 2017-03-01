@@ -22,6 +22,6 @@ export class User {
     this.lastName = lastHames[_.random(0, 6)];
 
     const avatarPos = _.random(1, 8);
-    this.avatar = `assets/img/a${avatarPos}.jpg`;
+    this.avatar = `/assets/img/a${avatarPos}.jpg`;
   }
 }

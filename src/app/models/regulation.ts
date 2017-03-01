@@ -13,6 +13,7 @@ export enum Status{
 export class Regulation {
   status: Status;
   version: string;
+  isFile: boolean;
   content: string;
   tags: Tag[];
   owner: User;

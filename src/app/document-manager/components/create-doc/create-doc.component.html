@@ -1,0 +1,69 @@
+<div class="mail-box-header">
+  <div class="pull-right tooltip-demo">
+    <label class="btn btn-sm btn-primary" *ngIf="!uploader.queue.length">
+      <input type="file" class="hidden" ng2FileSelect [uploader]="uploader">
+      <i class="fa fa-upload" aria-hidden="true"></i>
+      Attach
+    </label>
+  </div>
+  <h2>
+    New Document
+  </h2>
+</div>
+<div class="mail-box">
+
+  <div class="mail-body">
+    <form #docForm="ngForm" id="createDocForm">
+      <div class="row no-margins">
+        <div class="col-md-6 form-group">
+          <label>Regulation name</label>
+          <input type="text" placeholder="Enter name" name="regulationName" class="form-control" ngModel required>
+        </div>
+      </div>
+      <div class="row no-margins">
+        <div class="col-md-8 form-group">
+          <label>Tags</label>
+          <input-tags name="tags" [(ngModel)]="tags"></input-tags>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="mail-text h-200">
+    <div class="note-editor note-frame panel panel-default p-w-m">
+      <doc-editor *ngIf="!uploader.queue.length"></doc-editor>
+      <div class="mail-attachment" *ngIf="uploader?.queue?.length">
+        <p>
+          <i class="fa fa-paperclip"></i>
+          <a (click)="uploader.clearQueue()">Remove document</a>
+        </p>
+
+        <div class="attachment">
+          <div class="file-box" *ngFor="let item of uploader.queue">
+            <div class="file">
+              <span>
+                <span class="corner"></span>
+
+                <div class="icon">
+                  <i class="fa fa-file"></i>
+                </div>
+                <div class="file-name">
+                  {{ item?.file?.name }}
+                  <br>
+                  <small>Added: Jan 11, 2014</small>
+                </div>
+              </span>
+            </div>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mail-body text-right tooltip-demo">
+    <button form="createDocForm" class="btn btn-sm btn-primary"><i class="fa fa-reply"></i> Create</button>
+    <button class="btn btn-white btn-sm"><i class="fa fa-floppy-o"></i> Discard</button>
+  </div>
+</div>
+
