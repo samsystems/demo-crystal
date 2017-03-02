@@ -2,57 +2,36 @@ import {Injectable} from '@angular/core';
 import * as RxDB from 'rxdb';
 import {RxDatabase} from 'rxdb';
 
+//schemas
+import {TagSchema} from "../schemas/tag";
+import {RankSchema} from "../schemas/rank";
+import {UserSchema} from "../schemas/user";
+import {RegulationSchema} from "../schemas/regulation";
+
 RxDB.plugin(require('pouchdb-adapter-idb'));
 
-const RegulationSchema = {
-  "title": "Regulation schema",
-  "version": 1,
-  "description": "describes a simple hero",
-  "type": "object",
-  "properties": {
-    "status": {
-      "type": "string",
-      "primary": true
-    },
-    "version": {
-      "type": "string"
-    },
-    "isFile": {
-      "type": "boolean"
-    },
-    "content": {
-      "type": "string"
-    },
-    "tags": {
-      "type": "array",
-      "uniqueItems": true,
-      "items": {
-        "type": "object",
-        "properties": {
-          "type": "string"
-        }
-      }
-    },
-    "owner": {
-      "type": "object"
-    },
-    "users": {
-      "type": "array",
-      "uniqueItems": true,
-      "items": {
-        "type": "object"
-      }
-    },
-    "ranks": {
-      "type": "array",
-      "uniqueItems": true,
-      "items": {
-        "type": "object"
-      }
-    }
+const collections = [
+  {
+    name: 'tags',
+    schema: TagSchema,
+    sync: true
   },
-  "required": ["status"]
-};
+  {
+    name: 'ranks',
+    schema: RankSchema,
+    sync: true
+  },
+  {
+    name: 'users',
+    schema: UserSchema,
+    sync: true
+  },
+  {
+    name: 'regulations',
+    schema: RegulationSchema,
+    sync: true
+  }
+];
 
 @Injectable()
 export class DatabaseService {
@@ -71,10 +50,8 @@ export class DatabaseService {
         document.title = '♛ ' + document.title;
       });
 
-    await db.collection({
-      name: 'regulations',
-      schema: RegulationSchema
-    });
+    // create collections
+    await Promise.all(collections.map(schema => db.collection(schema)));
 
     return db;
   }
