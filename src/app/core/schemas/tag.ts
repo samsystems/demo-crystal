@@ -1,6 +1,6 @@
 export const TagSchema = {
   "title": "Tag schema",
-  "version": 1,
+  "version": 0,
   "description": "describes a simple Tag",
   "type": "object",
   "properties": {

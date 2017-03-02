@@ -7789,3 +7789,10 @@ body.md-skin {
     margin: 0;
   }
 }
+/* NgSelect Multiple*/
+.ui-select-match-item{
+  background-color: #1ab394;
+  color: white;
+}
+
+

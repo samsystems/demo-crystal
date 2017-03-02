@@ -6,30 +6,27 @@ import {RxDatabase} from 'rxdb';
 import {TagSchema} from "../schemas/tag";
 import {RankSchema} from "../schemas/rank";
 import {UserSchema} from "../schemas/user";
-import {RegulationSchema} from "../schemas/regulation";
+import {DocumentSchema} from "../schemas/document";
+import {fromPromise} from 'rxjs/observable/fromPromise';
 
 RxDB.plugin(require('pouchdb-adapter-idb'));
 
 const collections = [
   {
     name: 'tags',
-    schema: TagSchema,
-    sync: true
+    schema: TagSchema
   },
   {
     name: 'ranks',
-    schema: RankSchema,
-    sync: true
+    schema: RankSchema
   },
   {
     name: 'users',
-    schema: UserSchema,
-    sync: true
+    schema: UserSchema
   },
   {
-    name: 'regulations',
-    schema: RegulationSchema,
-    sync: true
+    name: 'documents',
+    schema: DocumentSchema
   }
 ];
 
@@ -44,11 +41,7 @@ export class DatabaseService {
     window['db'] = db; // write to window for debugging
 
     // show leadership in title
-    db.waitForLeadership()
-      .then(() => {
-        console.log('isLeader now');
-        document.title = '♛ ' + document.title;
-      });
+    db.waitForLeadership();
 
     // create collections
     await Promise.all(collections.map(schema => db.collection(schema)));

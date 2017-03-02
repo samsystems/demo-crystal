@@ -1,13 +1,12 @@
-import {RankSchema} from "./rank";
-
 export const UserSchema = {
   "title": "User schema",
-  "version": 1,
+  "version": 0,
   "description": "describes a simple User",
   "type": "object",
   "properties": {
     "username": {
-      "type": "string"
+      "type": "string",
+      "primary": true
     },
     "firstName": {
       "type": "string"
@@ -20,7 +19,14 @@ export const UserSchema = {
     },
     "rank": {
       "type": "object",
-      "properties": RankSchema.properties
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
     }
   },
   "required": ["name"]

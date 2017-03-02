@@ -1,6 +1,6 @@
 export const RankSchema = {
   "title": "Rank schema",
-  "version": 1,
+  "version": 0,
   "description": "describes a simple RANk",
   "type": "object",
   "properties": {

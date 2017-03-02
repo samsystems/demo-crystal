@@ -7,6 +7,7 @@ import {
   ButtonsModule
 } from 'ng2-bootstrap';
 import {FileUploadModule} from 'ng2-file-upload';
+import {SelectModule} from 'ng2-select';
 
 import {BriefcaseComponent} from './components/briefcase/briefcase.component';
 import {CreateDocComponent} from './components/create-doc/create-doc.component';
@@ -22,6 +23,7 @@ import {FormsModule} from '@angular/forms';
     ModalModule.forRoot(),
     ButtonsModule.forRoot(),
     FileUploadModule,
+    SelectModule,
     SharedModule
   ],
   declarations: [
