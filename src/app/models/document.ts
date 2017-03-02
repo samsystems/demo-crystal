@@ -10,7 +10,7 @@ export enum Status{
   "Permanent"
 }
 
-export class Regulation {
+export class Document {
   status: Status;
   version: string;
   isFile: boolean;

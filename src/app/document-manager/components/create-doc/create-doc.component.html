@@ -13,17 +13,18 @@
 <div class="mail-box">
 
   <div class="mail-body">
-    <form #docForm="ngForm" id="createDocForm">
+    <form #docForm="ngForm" id="createDocForm" novalidate (ngSubmit)="createDoc(docForm)">
       <div class="row no-margins">
         <div class="col-md-6 form-group">
           <label>Regulation name</label>
-          <input type="text" placeholder="Enter name" name="regulationName" class="form-control" ngModel required>
+          <input type="text" placeholder="Enter name" name="regulationName" class="form-control" ngModel required
+                 autocomplete="off">
         </div>
-      </div>
-      <div class="row no-margins">
-        <div class="col-md-8 form-group">
+        <div class="col-md-6 form-group">
           <label>Tags</label>
-          <input-tags name="tags" [(ngModel)]="tags"></input-tags>
+          <ng-select [multiple]="true"
+                     [items]="items"
+                     placeholder="No tag selected"></ng-select>
         </div>
       </div>
     </form>
@@ -62,8 +63,8 @@
   </div>
 
   <div class="mail-body text-right tooltip-demo">
-    <button form="createDocForm" class="btn btn-sm btn-primary"><i class="fa fa-reply"></i> Create</button>
-    <button class="btn btn-white btn-sm"><i class="fa fa-floppy-o"></i> Discard</button>
+    <button form="createDocForm" class="btn btn-sm btn-primary"><i class="fa fa-floppy-o"></i> Create</button>
+    <button class="btn btn-white btn-sm"><i class="fa fa-times"></i> Discard</button>
   </div>
 </div>
 

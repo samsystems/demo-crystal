@@ -9,9 +9,6 @@ export const reducers = {
   auth: formAuth.reducer
 };
 
-/**
- * Layout Reducers
- */
 export const getAuthState = (state: State) => state.auth;
 
 export const isAuthenticated = createSelector(getAuthState, formAuth.isAuthenticated);
