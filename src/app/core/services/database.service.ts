@@ -4,6 +4,56 @@ import {RxDatabase} from 'rxdb';
 
 RxDB.plugin(require('pouchdb-adapter-idb'));
 
+const RegulationSchema = {
+  "title": "Regulation schema",
+  "version": 1,
+  "description": "describes a simple hero",
+  "type": "object",
+  "properties": {
+    "status": {
+      "type": "string",
+      "primary": true
+    },
+    "version": {
+      "type": "string"
+    },
+    "isFile": {
+      "type": "boolean"
+    },
+    "content": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": "string"
+        }
+      }
+    },
+    "owner": {
+      "type": "object"
+    },
+    "users": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "object"
+      }
+    },
+    "ranks": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "object"
+      }
+    }
+  },
+  "required": ["status"]
+};
+
 @Injectable()
 export class DatabaseService {
   static dbPromise: Promise<RxDatabase> = null;
@@ -20,6 +70,11 @@ export class DatabaseService {
         console.log('isLeader now');
         document.title = '♛ ' + document.title;
       });
+
+    await db.collection({
+      name: 'regulations',
+      schema: RegulationSchema
+    });
 
     return db;
   }
