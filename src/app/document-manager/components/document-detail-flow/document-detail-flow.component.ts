@@ -6,7 +6,7 @@ import {Component, OnInit, Input} from '@angular/core';
   styleUrls: ['document-detail-flow.component.css']
 })
 export class DocumentDetailFlowComponent implements OnInit {
-  @Input() state: Object;
+  @Input() states: Array<Object>;
 
   constructor() { }
 

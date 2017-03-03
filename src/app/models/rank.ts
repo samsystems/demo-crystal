@@ -1,4 +1,9 @@
 export class Rank {
-  code: string;
-  name: string;
+  _code: string;
+  _name: string;
+
+  constructor(code: string, name: string) {
+    this._code = code;
+    this._name = name;
+  }
 }

@@ -13,6 +13,10 @@ import {BriefcaseComponent} from './components/briefcase/briefcase.component';
 import {CreateDocComponent} from './components/create-doc/create-doc.component';
 import {SharedModule} from '../shared/shared.module';
 import {FormsModule} from '@angular/forms';
+import {DocumentDetailComponent} from './components/document-detail/document-detail.component';
+import {DocumentDetailFlowComponent} from './components/document-detail-flow/document-detail-flow.component';
+import {DocumentDetailReleaseComponent} from './components/document-detail-release/document-detail-release.component';
+import {DocumentService} from './services/document.service';
 
 @NgModule({
   imports: [
@@ -28,8 +32,12 @@ import {FormsModule} from '@angular/forms';
   ],
   declarations: [
     BriefcaseComponent,
-    CreateDocComponent
-  ]
+    CreateDocComponent,
+    DocumentDetailComponent,
+    DocumentDetailFlowComponent,
+    DocumentDetailReleaseComponent
+  ],
+  providers: [DocumentService]
 })
 export class DocumentManagerModule {
 }

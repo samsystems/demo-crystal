@@ -20,6 +20,9 @@ export const DocumentSchema = {
     "content": {
       "type": "string"
     },
+    "comments": {
+      "type": "string"
+    },
     "tags": {
       "type": "array",
       "uniqueItems": true,
