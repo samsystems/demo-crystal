@@ -1,8 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {Store} from '@ngrx/store';
-import {State, getUser} from '../../reducers';
-import * as auth from '../../actions/auth';
 import {User} from '../../../models';
+import {AuthService} from '../../services/auth.service';
 
 
 @Component({
@@ -14,16 +12,17 @@ export class NavigationComponent implements OnInit {
 
   user: User;
 
-  constructor(private store: Store<State>) {
+  constructor(private auth: AuthService) {
   }
 
   ngOnInit() {
-    this.store.select(getUser).subscribe(user => {
+    this.user = this.auth.getUser();
+    this.auth.getUserObservable().subscribe((user) => {
       this.user = user;
-    });
+    })
   }
 
   logout() {
-    this.store.dispatch(new auth.LogoutAction());
+    this.auth.logout();
   }
 }

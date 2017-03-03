@@ -1,13 +1,13 @@
 import {Injectable} from '@angular/core';
 import * as RxDB from 'rxdb';
 import {RxDatabase} from 'rxdb';
+import * as uuid from 'uuid';
 
 //schemas
 import {TagSchema} from "../schemas/tag";
 import {RankSchema} from "../schemas/rank";
 import {UserSchema} from "../schemas/user";
 import {DocumentSchema} from "../schemas/document";
-import {fromPromise} from 'rxjs/observable/fromPromise';
 
 RxDB.plugin(require('pouchdb-adapter-idb'));
 
@@ -46,7 +46,64 @@ export class DatabaseService {
     // create collections
     await Promise.all(collections.map(schema => db.collection(schema)));
 
+    this.fixtures(db);
+
     return db;
+  }
+
+  private async fixtures(db) {
+    const tagCollection = await db.collection('tags');
+    const rankCollection = await db.collection('ranks');
+    const usersCollection = await db.collection('users');
+    //tags
+    await tagCollection.insert({
+      id: uuid.v4(),
+      name: "Tenders"
+    });
+    //ranks
+    await rankCollection.insert({
+      code: "CAP",
+      name: "Captain"
+    });
+    await rankCollection.insert({
+      code: "SA",
+      name: "Sailor"
+    });
+    await rankCollection.insert({
+      code: "DO",
+      name: "Deck officer"
+    });
+    //user
+    await usersCollection.insert({
+      username: "captain",
+      firstName: "Jhon",
+      lastName: "Doe",
+      avatar: "/assets/img/a1.jpg",
+      rank: {
+        code: "CAP",
+        name: "Captain"
+      }
+    });
+    await usersCollection.insert({
+      username: "sailor",
+      firstName: "Jane",
+      lastName: "Doe",
+      avatar: "/assets/img/a3.jpg",
+      rank: {
+        code: "SA",
+        name: "Sailor"
+      }
+    });
+    await usersCollection.insert({
+      username: "officer",
+      firstName: "Bruce",
+      lastName: "Warren",
+      avatar: "/assets/img/a2.jpg",
+      rank: {
+        code: "DO",
+        name: "Deck officer"
+      }
+    });
   }
 
   get(): Promise<RxDatabase> {

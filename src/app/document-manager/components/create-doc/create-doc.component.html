@@ -1,19 +1,23 @@
-<div class="mail-box-header">
-  <div class="pull-right tooltip-demo">
-    <label class="btn btn-sm btn-primary" *ngIf="!uploader.queue.length">
-      <input type="file" class="hidden" ng2FileSelect [uploader]="uploader">
-      <i class="fa fa-upload" aria-hidden="true"></i>
-      Attach
-    </label>
-  </div>
-  <h2>
-    New Document
-  </h2>
-</div>
-<div class="mail-box">
+<form #docForm="ngForm" novalidate (ngSubmit)="createDoc(docForm)" (keydown.enter)="$event.preventDefault()">
 
-  <div class="mail-body">
-    <form #docForm="ngForm" id="createDocForm" novalidate (ngSubmit)="createDoc(docForm)">
+  <div class="mail-box-header">
+    <div class="pull-right tooltip-demo">
+      <label class="btn btn-sm btn-primary" *ngIf="!uploader.queue.length">
+        <input type="file" class="hidden" ng2FileSelect [uploader]="uploader">
+        <i class="fa fa-upload" aria-hidden="true"></i>
+        Attach
+      </label>
+    </div>
+    <div class="pull-right form-group m-r-xs">
+      <input placeholder="Version" name="version" class="input-sm form-control"
+             autocomplete="off" style="width: 80px" [(ngModel)]="initVersion">
+    </div>
+    <h2>
+      New Document
+    </h2>
+  </div>
+  <div class="mail-box">
+    <div class="mail-body">
       <div class="row no-margins">
         <div class="col-md-6 form-group">
           <label>Regulation name</label>
@@ -21,27 +25,43 @@
                  autocomplete="off">
         </div>
         <div class="col-md-6 form-group">
-          <label>Tags</label>
-          <ng-select [multiple]="true"
-                     [items]="items"
-                     placeholder="No tag selected"></ng-select>
+          <label>Primary</label>
+          <ng-select [multiple]="true" (data)="refreshPrimary($event)"
+                     [items]="ranks"></ng-select>
         </div>
       </div>
-    </form>
-  </div>
+      <div class="row no-margins">
+        <div class="col-md-6 form-group">
+          <label>Secondary</label>
+          <ng-select [multiple]="true" (data)="refreshSecundary($event)"
+                     [items]="ranks"></ng-select>
+        </div>
+        <div class="col-md-6 form-group">
+          <label>Tags</label>
+          <input-tags name="freeTags" ngModel></input-tags>
+        </div>
+      </div>
+      <div class="row no-margins">
+        <div class="col-md-12 form-group">
+          <label>Comments</label>
+          <textarea name="comments" class="form-control" ngModel style="width: 100%" rows="3"></textarea>
+        </div>
+      </div>
+    </div>
 
-  <div class="mail-text h-200">
-    <div class="note-editor note-frame panel panel-default p-w-m">
-      <doc-editor *ngIf="!uploader.queue.length"></doc-editor>
-      <div class="mail-attachment" *ngIf="uploader?.queue?.length">
-        <p>
-          <i class="fa fa-paperclip"></i>
-          <a (click)="uploader.clearQueue()">Remove document</a>
-        </p>
 
-        <div class="attachment">
-          <div class="file-box" *ngFor="let item of uploader.queue">
-            <div class="file">
+    <div class="mail-text h-200">
+      <div class="note-editor note-frame panel panel-default p-w-m">
+        <div *ngIf="!uploader?.queue?.length" [froalaEditor] [(froalaModel)]="content"></div>
+        <div class="mail-attachment" *ngIf="uploader?.queue?.length">
+          <p>
+            <i class="fa fa-paperclip"></i>
+            <a (click)="uploader.clearQueue()">Remove document</a>
+          </p>
+
+          <div class="attachment">
+            <div class="file-box" *ngFor="let item of uploader.queue">
+              <div class="file">
               <span>
                 <span class="corner"></span>
 
@@ -54,17 +74,17 @@
                   <small>Added: Jan 11, 2014</small>
                 </div>
               </span>
+              </div>
             </div>
+            <div class="clearfix"></div>
           </div>
-          <div class="clearfix"></div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="mail-body text-right tooltip-demo">
-    <button form="createDocForm" class="btn btn-sm btn-primary"><i class="fa fa-floppy-o"></i> Create</button>
-    <button class="btn btn-white btn-sm"><i class="fa fa-times"></i> Discard</button>
+    <div class="mail-body text-right tooltip-demo">
+      <button class="btn btn-sm btn-primary"><i class="fa fa-floppy-o"></i> Create</button>
+      <button type="reset" (click)="cancel()" class="btn btn-white btn-sm"><i class="fa fa-times"></i> Discard</button>
+    </div>
   </div>
-</div>
-
+</form>

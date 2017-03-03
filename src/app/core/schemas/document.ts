@@ -20,7 +20,7 @@ export const DocumentSchema = {
     "content": {
       "type": "string"
     },
-    "comments": {
+    "date": {
       "type": "string"
     },
     "tags": {
