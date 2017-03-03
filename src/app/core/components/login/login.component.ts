@@ -1,8 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {NgForm} from '@angular/forms';
-import {Store} from '@ngrx/store';
-import {State} from '../../reducers';
-import * as auth from '../../actions/auth';
+import {AuthService} from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +9,9 @@ import * as auth from '../../actions/auth';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private store: Store<State>) {
+  error: boolean = false;
+
+  constructor(private auth: AuthService) {
   }
 
   ngOnInit() {
@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
 
   login(form: NgForm) {
     if (form.valid) {
-      this.store.dispatch(new auth.LoginAction(form.value));
+      this.error = !this.auth.authenticate(form.value);
     }
   }
 }

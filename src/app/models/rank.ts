@@ -1,4 +1,4 @@
-export class Rank {
-  code: string;
-  name: string;
+export interface Rank {
+  id: string;
+  text: string;
 }

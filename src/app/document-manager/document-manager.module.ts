@@ -8,11 +8,14 @@ import {
 } from 'ng2-bootstrap';
 import {FileUploadModule} from 'ng2-file-upload';
 import {SelectModule} from 'ng2-select';
+import {FroalaEditorModule} from 'angular2-froala-wysiwyg/editor';
+import {FroalaViewModule} from 'angular2-froala-wysiwyg/view';
 
 import {BriefcaseComponent} from './components/briefcase/briefcase.component';
 import {CreateDocComponent} from './components/create-doc/create-doc.component';
-import {SharedModule} from '../shared/shared.module';
 import {FormsModule} from '@angular/forms';
+import {DocumentService} from './services/document.service';
+import {SharedModule} from '../shared/shared.module';
 
 @NgModule({
   imports: [
@@ -24,11 +27,16 @@ import {FormsModule} from '@angular/forms';
     ButtonsModule.forRoot(),
     FileUploadModule,
     SelectModule,
+    FroalaEditorModule,
+    FroalaViewModule,
     SharedModule
   ],
   declarations: [
     BriefcaseComponent,
     CreateDocComponent
+  ],
+  providers: [
+    DocumentService
   ]
 })
 export class DocumentManagerModule {

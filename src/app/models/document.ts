@@ -10,13 +10,18 @@ export enum Status{
   "Permanent"
 }
 
-export class Document {
+export interface Document {
+  name: string;
   status: Status;
   version: string;
   isFile: boolean;
-  content: string;
-  tags: Tag[];
+  content?: string;
+  date: string;
+  updated: string;
+  comments: string;
+  primary: Rank[];
+  secundary: Rank[];
+  tags?: string[];
   owner: User;
-  users: User[];
-  ranks: Rank[];
+  users?: User[];
 }
