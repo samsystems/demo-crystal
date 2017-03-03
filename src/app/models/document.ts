@@ -11,6 +11,7 @@ export enum Status{
 }
 
 export interface Document {
+  id: string;
   name: string;
   status: Status;
   version: string;
