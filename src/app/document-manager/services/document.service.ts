@@ -30,4 +30,9 @@ export class DocumentService {
     this.documents.push(doc);
     localStorage.setItem('documents', JSON.stringify(this.documents));
   }
+
+  findById(id): Document {
+    return this.documents.find((doc) => doc.id === id);
+  }
+
 }
