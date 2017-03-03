@@ -14,6 +14,7 @@ import {
 } from '../../../models/document';
 import {AuthService} from '../../../core/services/auth.service';
 import {Router} from '@angular/router';
+import * as uuid from 'uuid';
 
 @Component({
   selector: 'app-create-doc',
@@ -55,6 +56,7 @@ export class CreateDocComponent implements OnInit {
   createDoc(form: NgForm) {
     if (form.valid) {
       const newDoc: Document = {
+        id: uuid.v4(),
         name: form.value.regulationName as string,
         status: Status.Draft,
         version: form.value.version as string,
