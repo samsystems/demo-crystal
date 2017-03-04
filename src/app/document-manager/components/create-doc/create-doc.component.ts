@@ -5,7 +5,6 @@ import {
 import {FileUploader} from 'ng2-file-upload';
 import {NgForm} from '@angular/forms';
 import {Tag} from '../../../models/tag';
-import {DocumentService} from '../../services/document.service';
 import * as moment from 'moment';
 import {Rank} from '../../../models/rank';
 import {
@@ -16,6 +15,7 @@ import {AuthService} from '../../../core/services/auth.service';
 import {Router} from '@angular/router';
 import * as uuid from 'uuid';
 import {DocumentLog} from '../../../models/document-log';
+import {DocumentService} from "../../../services/document.service";
 
 @Component({
   selector: 'app-create-doc',
