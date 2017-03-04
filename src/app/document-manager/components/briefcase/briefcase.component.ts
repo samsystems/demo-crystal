@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {DocumentService} from '../../services/document.service';
+import { Document } from '../../../models/document';
 
 @Component({
   selector: 'app-briefcase',
@@ -8,7 +9,7 @@ import {DocumentService} from '../../services/document.service';
 })
 export class BriefcaseComponent implements OnInit {
 
-  private _documents: Array<Object>;
+  private _documents: Array<Document>;
 
   constructor(private documentService: DocumentService) { }
 
@@ -17,11 +18,15 @@ export class BriefcaseComponent implements OnInit {
   }
 
 
-  get documents(): Array<Object> {
+  get documents(): Array<Document> {
     return this._documents;
   }
 
-  set documents(value: Array<Object>) {
+  set documents(value: Array<Document>) {
     this._documents = value;
+  }
+
+  removeDocument(documentID: string) {
+    this.documents = this.documentService.removeDocument(documentID);
   }
 }

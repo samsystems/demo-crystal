@@ -3,7 +3,7 @@
     <div class="ibox float-e-margins">
       <div class="ibox-content">
         <div class="file-manager">
-          <button class="btn btn-primary btn-block" routerLink="/briefcase/upload">Upload Files</button>
+          <button class="btn btn-primary btn-block" routerLink="/briefcase/create">New Document</button>
           <div class="hr-line-dashed"></div>
           <h5>Show:</h5>
           <a href="#" class="file-control active">Ale</a>
@@ -41,6 +41,7 @@
       <div class="col-lg-12">
         <div class="file-box" *ngFor="let document of documents">
           <div class="file">
+            <span class="corner-top" (click)="removeDocument(document.id)"><i class="fa fa-trash-o"></i></span>
             <a routerLink="detail/{{ document.id }}">
               <span class="corner"></span>
 
