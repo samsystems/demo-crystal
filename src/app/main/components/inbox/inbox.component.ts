@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {DocumentService} from "../../../services/document.service";
 
 @Component({
   selector: 'app-inbox',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InboxComponent implements OnInit {
 
-  constructor() { }
+  documents: any;
+
+  constructor(private documentService: DocumentService) {
+  }
 
   ngOnInit() {
+    this.documentService.getDocuments().subscribe((documents) => {
+      this.documents = documents;
+    })
   }
 
 }
