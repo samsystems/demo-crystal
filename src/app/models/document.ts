@@ -4,7 +4,7 @@ import {Rank} from './rank';
 
 export enum Status{
   "Draft",
-  "Pending Approval",
+  "Pending_Approval",
   "Approved",
   "Published",
   "Permanent"
