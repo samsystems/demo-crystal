@@ -5,11 +5,11 @@
     </div>
 
     <div class="vertical-timeline-content">
-      <h2>{{ state.status }}</h2>
-      <p>{{ state.description }}</p>
+      <h2>{{ state.user.lastName }}, {{ state.user.firstName }}</h2>
+      <p>{{ state.changes }}</p>
       <a href="#" class="btn btn-sm btn-primary"> More info</a>
-      <span class="vertical-date">{{ state.modified | date:'EEEE' }}<br>
-                                        <small>{{ state.modified | date:'MMM d' }}</small>
+      <span class="vertical-date">{{ state.date | date:'EEEE' }}<br>
+                                        <small>{{ state.date | date:'MMM d' }}</small>
                                     </span>
     </div>
   </div>

@@ -15,6 +15,7 @@ import {
 import {AuthService} from '../../../core/services/auth.service';
 import {Router} from '@angular/router';
 import * as uuid from 'uuid';
+import {DocumentLog} from '../../../models/document-log';
 
 @Component({
   selector: 'app-create-doc',
@@ -59,7 +60,7 @@ export class CreateDocComponent implements OnInit {
         id: uuid.v4(),
         name: form.value.regulationName as string,
         status: Status.Draft,
-        version: form.value.version as string,
+        version: this.initVersion,
         isFile: !!this.uploader.queue.length,
         content: this.content,
         date: moment().format(),
@@ -72,6 +73,14 @@ export class CreateDocComponent implements OnInit {
       };
       try {
         this.docService.createDoc(newDoc);
+        const documentLog: DocumentLog = {
+          id: uuid.v4(),
+          user: this.auth.getUser(),
+          document: newDoc,
+          changes: 'Document Created',
+          date: Date.now()
+        };
+        this.docService.createDocumentLog(documentLog);
         this.router.navigateByUrl('');
       } catch ($e) {
       }

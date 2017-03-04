@@ -1,28 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import {DocumentService} from '../../services/document.service';
+import {ActivatedRoute} from '@angular/router';
+import {DocumentLog} from '../../../models/document-log';
 
 @Component({
   selector: 'app-document-detail',
   templateUrl: './document-detail.component.html'
 })
 export class DocumentDetailComponent implements OnInit {
-  states: Array<Object>;
+  states: Array<DocumentLog>;
   releases: Array<Object>;
   document: Object;
+  id: string;
 
-  constructor(private documentService: DocumentService) { }
+  constructor(private documentService: DocumentService, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.documentService.getStates().subscribe(
-      states => this.states = states
-    );
-    this.documentService.getReleases().subscribe(
-      releases => this.releases = releases
-    );
-
-    this.documentService.getDocuments().subscribe(
-      documents => this.document = documents[0]
-    );
+    this.route.params.subscribe(params=>this.id=params['id']);
+    this.document = this.documentService.findById(this.id);
+    this.states = this.documentService.findDocumentLogById(this.id);
   }
-
 }
