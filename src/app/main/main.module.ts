@@ -9,6 +9,7 @@ import {FormsModule} from '@angular/forms';
 import {MainRoutesModule} from './main.routes';
 import {MainComponent} from './components/main/main.component';
 import {InboxComponent} from './components/inbox/inbox.component';
+import {DocumentService} from "../document-manager/services/document.service";
 
 @NgModule({
   imports: [
@@ -21,7 +22,8 @@ import {InboxComponent} from './components/inbox/inbox.component';
   declarations: [
     MainComponent,
     InboxComponent
-  ]
+  ],
+  providers: [DocumentService]
 })
 export class MainModule {
 }

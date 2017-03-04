@@ -31,7 +31,13 @@
               <span class="label label-info pull-right">1</span>
             </a></li>
             <li><a href="#"> <i class="fa fa-circle text-danger"></i>My Audits</a></li>
-            <li><a href="#"> <i class="fa fa-circle text-primary"></i>My Primary Responsibilities</a></li>
+
+            <li>
+              <a href="#"> <i class="fa fa-circle text-primary"></i>My Primary Responsibilities
+                <span class="label label-info pull-right">{{primaryResponsibilities}}</span>
+              </a>
+            </li>
+
             <li><a href="#"> <i class="fa fa-circle text-info"></i>Non-Conformances</a></li>
             <li><a href="#"> <i class="fa fa-circle text-warning"></i>Regulations for my Department</a></li>
             <li><a href="#"> <i class="fa fa-circle text-warning"></i>Company policies</a></li>
@@ -41,6 +47,9 @@
 
           <h5 class="tag-title">Labels</h5>
           <ul class="tag-list" style="padding: 0">
+
+            <li *ngFor=""><a href><i><span></span></i></a></li>
+
             <li><a href=""><i class="fa fa-tag"></i> Bridge <span class="badge">42</span></a></li>
             <li><a href=""><i class="fa fa-tag"></i> Company requirements <span class="badge">2</span></a></li>
             <li><a href=""><i class="fa fa-tag"></i> Bridge <span class="badge">42</span></a></li>
