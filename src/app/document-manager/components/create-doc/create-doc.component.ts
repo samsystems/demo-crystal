@@ -30,7 +30,7 @@ export class CreateDocComponent implements OnInit {
   primary: any[];
   secundary: any[];
   content: string = '<span>My Document\'s Title</span>';
-  initVersion: "1.0.0";
+  initVersion: string = '1.0.0';
 
   constructor(private docService: DocumentService,
               private auth: AuthService,

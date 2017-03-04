@@ -21,6 +21,10 @@ export const routes: Routes = [
       {
         path: 'briefcase',
         loadChildren: './document-manager/document-manager.module#DocumentManagerModule'
+      },
+      {
+        path: 'audit',
+        loadChildren: './audit/audit.module#AuditModule'
       }
     ]
   },
