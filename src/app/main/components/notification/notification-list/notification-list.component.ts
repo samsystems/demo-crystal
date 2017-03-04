@@ -14,4 +14,8 @@ export class NotificationListComponent implements OnInit {
   ngOnInit() {
   }
 
+  selectItem(item: Document) {
+    // Todo Do somehting with selected item
+    console.log("Selected Item", item)
+  }
 }

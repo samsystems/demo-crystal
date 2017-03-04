@@ -10,10 +10,18 @@ export class NotificationItemComponent implements OnInit {
   @Input('item') document: Document;
   @Output() selectItem = new EventEmitter<Document>();
 
+  selected: boolean;
+
   constructor() {
   }
 
   ngOnInit() {
+    this.selected = false;
+  }
+
+  checkItem(){
+    this.selected = !this.selected;
+    this.selectItem.emit(this.document);
   }
 
 }
