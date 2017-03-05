@@ -24,8 +24,6 @@ export class MainComponent implements OnInit {
   pendingApproval: number;
   approved: number;
 
-  sub: any;
-
   constructor(private auth: AuthService, private documentService: DocumentService) {
     this.primaryResponsibilities = 0;
     this.inbox = 0;
@@ -33,8 +31,8 @@ export class MainComponent implements OnInit {
     this.audits = 0;
 
     //Count of documents by status
-    this.pendingApproval = 0;
     this.draft = 0;
+    this.pendingApproval = 0;
     this.approved = 0;
   }
 

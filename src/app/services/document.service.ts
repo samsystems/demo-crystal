@@ -108,6 +108,15 @@ export class DocumentService {
     return document.users.findIndex((x) => x.username === user.username) != -1;
   }
 
+  /**
+   * Return true weather current document has a search tag, otherwise false
+   * @param document
+   * @param tag
+   * @returns {boolean}
+   */
+  hasTag(document: Document, tag: string) {
+    return document.tags.findIndex((itemTag) => itemTag === tag) != -1;
+  }
 
   /**
    * Get documents by his status
@@ -244,5 +253,9 @@ export class DocumentService {
     }
 
     return result;
+  }
+
+  getDocumentsByTag(tag: string): Document[] {
+    return this.documents.filter((doc) => this.hasTag(doc, tag));
   }
 }

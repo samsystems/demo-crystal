@@ -27,7 +27,7 @@
             </li>
 
             <li>
-              <a  [routerLink]="['/home']" [queryParams]="{ status: 0}"> <i class="fa fa-file-text-o"></i> Drafts
+              <a [routerLink]="['/home']" [queryParams]="{ status: 0}"> <i class="fa fa-file-text-o"></i> Drafts
                 <span class="label label-danger pull-right" *ngIf="draft>0">{{draft}}</span>
               </a>
             </li>
@@ -39,7 +39,7 @@
             </li>
 
             <li>
-              <a  [routerLink]="['/home']" [queryParams]="{ status: 2}"> <i class="fa fa-trash-o"></i> Approved
+              <a [routerLink]="['/home']" [queryParams]="{ status: 2}"> <i class="fa fa-trash-o"></i> Approved
                 <span class="label label-danger pull-right" *ngIf="approved>0">{{approved}}</span>
               </a>
             </li>
@@ -55,7 +55,7 @@
             </a></li>
 
             <li>
-              <a href="#"> <i class="fa fa-circle text-primary"></i>My Primary Responsibilities
+              <a [routerLink]="['/home']" [queryParams]="{ status: 0}"> <i class="fa fa-circle text-primary"></i>My Primary Responsibilities
                 <span class="label label-info pull-right" *ngIf="primaryResponsibilities>0 ">{{primaryResponsibilities}}</span>
               </a>
             </li>
@@ -71,7 +71,7 @@
           <ul class="tag-list" style="padding: 0">
 
             <li *ngFor="let key of tagsKeys">
-              <a href>
+              <a [routerLink]="['/home']" [queryParams]="{ tag: key}">
                 <i class="fa fa-tag">{{key}}
                   <span class="badge">{{tags[key]['count']}}</span>
                 </i>
