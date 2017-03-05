@@ -1,5 +1,4 @@
 import {User} from './user';
-import {Tag} from './tag';
 import {Rank} from './rank';
 
 export enum Status{
@@ -21,7 +20,7 @@ export interface Document {
   updated: string;
   comments: string;
   primary: Rank[];
-  secundary: Rank[];
+  secondary: Rank[];
   tags?: string[];
   owner: User;
   users?: User[];

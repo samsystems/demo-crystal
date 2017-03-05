@@ -28,7 +28,7 @@ export class CreateDocComponent implements OnInit {
   tags: Tag[];
   ranks: Rank[];
   primary: any[];
-  secundary: any[];
+  secondary: any[];
   content: string = '<span>My Document\'s Title</span>';
   initVersion: "1.0.0";
 
@@ -46,8 +46,8 @@ export class CreateDocComponent implements OnInit {
     this.primary = value;
   }
 
-  public refreshSecundary(value: any): void {
-    this.secundary = value;
+  public refreshSecondary(value: any): void {
+    this.secondary = value;
   }
 
   cancel() {
@@ -67,7 +67,7 @@ export class CreateDocComponent implements OnInit {
         updated: moment().format(),
         comments: form.value.comments as string,
         primary: this.primary,
-        secundary: this.secundary,
+        secondary: this.secondary,
         tags: form.value.freeTags as string[],
         owner: this.auth.getUser()
       };
