@@ -1,4 +1,5 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
 import {DocumentService} from "../../../services/document.service";
 
 @Component({
@@ -6,17 +7,30 @@ import {DocumentService} from "../../../services/document.service";
   templateUrl: './inbox.component.html',
   styleUrls: ['./inbox.component.css']
 })
-export class InboxComponent implements OnInit {
+export class InboxComponent implements OnInit , OnDestroy{
 
   documents: any;
+  sub:any;
 
-  constructor(private documentService: DocumentService) {
+  constructor(private documentService: DocumentService, private route: ActivatedRoute) {
   }
 
   ngOnInit() {
-    this.documentService.getDocuments().subscribe((documents) => {
-      this.documents = documents;
-    })
+
+    this.sub = this.route.queryParams.subscribe(params => {
+      // Defaults to -1 if no query param provided.
+      let status = +params['status'] || -1;
+
+      this.documents = this.documentService.getDocumentsByStatus(status);
+
+    });
+
+
+
+  }
+
+  ngOnDestroy() {
+    this.sub.unsubscribe();
   }
 
 }

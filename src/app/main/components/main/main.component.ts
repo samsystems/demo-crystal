@@ -1,6 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
+
 import {AuthService} from '../../../core/services/auth.service';
 import {DocumentService} from "../../../services/document.service";
+import {Status} from "../../../models/document";
 
 @Component({
   selector: 'app-main',
@@ -21,6 +23,8 @@ export class MainComponent implements OnInit {
   draft: number;
   pendingApproval: number;
   approved: number;
+
+  sub: any;
 
   constructor(private auth: AuthService, private documentService: DocumentService) {
     this.primaryResponsibilities = 0;
