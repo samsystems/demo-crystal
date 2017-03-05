@@ -11,7 +11,8 @@
     </div>
   </form>
   <h2>
-    Inbox (16)
+    {{title}}
+    <span *ngIf="tag" class="label label-info"><i class="fa fa-tag"></i> {{tag}}</span>
   </h2>
   <div class="mail-tools tooltip-demo m-t-md">
     <div class="btn-group pull-right">
