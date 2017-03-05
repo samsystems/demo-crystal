@@ -1,24 +1,36 @@
 import {Injectable} from '@angular/core';
 import * as uuid from 'uuid';
-import {Document, Status} from '../../models/document';
-import {DocumentLog} from '../../models/document-log';
-import {User} from "../../models/user";
-import {Observable} from "rxjs";
+import {Document, Status} from '../models/document';
+import {DocumentLog} from '../models/document-log';
+import {User} from "../models/user";
+import {Observable, BehaviorSubject} from "rxjs";
 
 @Injectable()
 export class DocumentService {
 
-  protected documents: Document[] = [];
+  protected documents: Document[];
+  protected _documents: BehaviorSubject<Document[]>;
   protected documentLogs: DocumentLog[] = [];
+
+  //this variable allow to handel what documents
+  // we want to show in main components
+  protected currentDocumentStatus: number;
 
   constructor() {
     this.onInit();
   }
 
   onInit() {
+
+    // -1 means that inmain component we will show all components, otherwise
+    // we will show documents with status=currentDocumentStatus
+    this.currentDocumentStatus = -1;
+
+
     let documents = JSON.parse(localStorage.getItem('documents'));
     if (documents) {
       this.documents = documents;
+      this._documents = new BehaviorSubject(this.documents);
     }
     let tags = JSON.parse(localStorage.getItem('tags'));
     if (!tags) {
@@ -37,6 +49,7 @@ export class DocumentService {
   createDoc(doc: Document) {
     this.documents.push(doc);
     localStorage.setItem('documents', JSON.stringify(this.documents));
+    this._documents.next(this.documents);
   }
 
   createDocumentLog(documentLog: DocumentLog) {
@@ -58,11 +71,11 @@ export class DocumentService {
   }
 
   /**
-   *  Using an observable
-   * @returns {any}
+   *
+   * @returns {Observable<T>}
    */
-  getDocuments():any{
-    return Observable.of(this.documents);
+  getDocuments():Observable<Document[]>{
+    return this._documents.asObservable();
   }
 
   /**
@@ -102,6 +115,8 @@ export class DocumentService {
    * @returns {Document[]}
    */
   getDocumentsByStatus(status: Status): Document[] {
+    if(status ===-1)
+      return this.documents;
     return this.documents.filter((doc) => doc.status === status);
   }
 
@@ -211,7 +226,7 @@ export class DocumentService {
    */
   getTags():any{
     let allTags = [];
-    let result = [];
+    let result = {};
 
     //get all tags
     for (let i = 0;  i < this.documents.length; i++)
