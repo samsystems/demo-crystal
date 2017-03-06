@@ -41,7 +41,7 @@ export class InboxComponent implements OnInit, OnDestroy {
       this.getDocumentsByAction(this.currentFilter['documents']);
     } else {
       // Defaults to -1 if no query param provided.
-      let status = this.currentFilter || -1;
+      let status = this.currentFilter['status'] || -1;
       this.getDocumentByStatus(+status);
     }
   }
