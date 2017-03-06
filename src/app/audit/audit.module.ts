@@ -5,8 +5,10 @@ import {FormAuditComponent} from './components/form-audit/form-audit.component';
 import {CreateAuditComponent} from './components/create-audit/create-audit.component';
 import {ListAuditComponent} from './components/list-audit/list-audit.component';
 import {FormsModule} from '@angular/forms';
-import {DatepickerModule} from 'ng2-bootstrap';
+import {DatepickerModule, TooltipModule} from 'ng2-bootstrap';
 import {SelectModule} from 'ng2-select';
+import {AuditService} from './services/audit.service';
+import { EditAuditComponent } from './components/edit-audit/edit-audit.component';
 
 @NgModule({
   imports: [
@@ -14,12 +16,17 @@ import {SelectModule} from 'ng2-select';
     FormsModule,
     AuditRoutesModule,
     DatepickerModule.forRoot(),
+    TooltipModule.forRoot(),
     SelectModule
   ],
   declarations: [
     FormAuditComponent,
     CreateAuditComponent,
-    ListAuditComponent
+    ListAuditComponent,
+    EditAuditComponent
+  ],
+  providers:[
+    AuditService
   ]
 })
 export class AuditModule {

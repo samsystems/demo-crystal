@@ -1,0 +1,11 @@
+<div class="mail-box-header">
+  <div class="pull-right tooltip-demo form-group">
+    <select class="form-control" name="status" [(ngModel)]="audit.status">
+      <option *ngFor="let status of statusLabels; let i = index;" [value]="i">{{status}}</option>
+    </select>
+  </div>
+  <h2>
+    Edit Audit
+  </h2>
+</div>
+<app-form-audit [audit]="audit" (onSubmit)="create($event)" (cancel)="onCancel($event)"></app-form-audit>

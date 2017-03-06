@@ -1,1 +1,6 @@
-<app-form-audit></app-form-audit>
+<div class="mail-box-header">
+  <h2>
+    New Audit
+  </h2>
+</div>
+<app-form-audit (onSubmit)="create($event)" (cancel)="onCancel($event)"></app-form-audit>

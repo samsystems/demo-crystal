@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {User} from '../../models';
+import {User} from '../../models/user';
 import {Router} from '@angular/router';
 import {ICredential} from '../../models/credentials';
 import * as _ from 'lodash';
@@ -25,6 +25,7 @@ export class AuthService {
         lastName: "Doe",
         avatar: "/assets/img/a1.jpg",
         login: false,
+        isAuditor: true,
         rank: {
           id: "CAP",
           text: "Captain"
@@ -35,6 +36,7 @@ export class AuthService {
         lastName: "Doe",
         avatar: "/assets/img/a3.jpg",
         login: false,
+        isAuditor: true,
         rank: {
           id: "QM",
           text: "Quartermaster"
@@ -44,6 +46,7 @@ export class AuthService {
         firstName: "Bruce",
         lastName: "Warren",
         login: false,
+        isAuditor: true,
         avatar: "/assets/img/a2.jpg",
         rank: {
           id: "COSS",
@@ -51,6 +54,7 @@ export class AuthService {
         }
       }];
       localStorage.setItem('users', JSON.stringify(users));
+      this.onInit();
     } else {
       this.users = users;
       let index = _.findIndex(this.users, {'login': true});
@@ -70,11 +74,12 @@ export class AuthService {
       }, {
         id: "COSS",
         text: "Chief Officer Safety Security"
-      },{
+      }, {
         id: "QM",
         text: "Quartermaster"
       }];
       localStorage.setItem('ranks', JSON.stringify(ranks));
+      this.onInit();
     }
   }
 
@@ -92,6 +97,18 @@ export class AuthService {
 
   isLogin() {
     return _.findIndex(this.users, {'login': true}) >= 0 ? true : false;
+  }
+
+  getUsers(): User[] {
+    return this.users;
+  }
+
+  getAuditors() {
+    return _.filter(this.users, {'isAuditor': true});
+  }
+
+  findUser(username: string): User {
+    return _.find(this.users, {'username': username});
   }
 
   getUser(): User {

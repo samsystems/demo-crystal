@@ -7,293 +7,78 @@
   </div>
   <div class="ibox-content">
     <div class="row m-b-sm m-t-sm">
-      <div class="col-md-1">
-        <button type="button" id="loading-example-btn" class="btn btn-white btn-sm"><i class="fa fa-refresh"></i>
-          Refresh
-        </button>
-      </div>
-      <div class="col-md-11">
-        <div class="input-group"><input type="text" placeholder="Search" class="input-sm form-control"> <span
-          class="input-group-btn">
-                                        <button type="button" class="btn btn-sm btn-primary"> Go!</button> </span></div>
-      </div>
+      <form #searchForm="ngForm" (ngSubmit)="search()">
+        <div class="col-md-3">
+          <label>Title</label>
+          <input type="text" name="title" placeholder="Search" class="form-control" [(ngModel)]="filter.title">
+        </div>
+        <div class="col-md-2">
+          <label>Date</label>
+          <input type="date" placeholder="Date" class="form-control" name="date" [(ngModel)]="filter.date">
+        </div>
+        <div class="col-md-2">
+          <label>Status</label>
+          <select class="form-control" name="status" [(ngModel)]="filter.status">
+            <option value=""></option>
+            <option *ngFor="let status of statusLabels; let i = index;" [value]="i">{{status}}</option>
+          </select>
+        </div>
+        <div class="col-md-2">
+          <label>Type</label>
+          <select class="form-control" name="type" [(ngModel)]="filter.type">
+            <option value=""></option>
+            <option *ngFor="let type of auditTypes" [value]="type">{{type}}</option>
+          </select>
+        </div>
+        <div class="col-md-2">
+          <label>Location</label>
+          <select class="form-control" name="location" [(ngModel)]="filter.location">
+            <option *ngFor="let ship of locations" [value]="ship">{{ship}}</option>
+          </select>
+        </div>
+        <div class="col-md-1" style="padding-top: 2em;">
+          <button type="submit" class="btn btn-white btn-sm">
+            Search
+          </button>
+        </div>
+      </form>
     </div>
-
     <div class="project-list">
       <table class="table table-hover">
         <tbody>
-        <tr>
+        <tr *ngFor="let audit of audits">
           <td class="project-status">
-            <span class="label label-primary">Active</span>
+            <span class="label"
+                  [ngClass]="(audit.status == 0 ? 'label-primary' : audit.status == 1 ? 'label-info' : 'label-default')">
+              {{statusLabels[audit.status]}}</span>
           </td>
           <td class="project-title">
-            <a href="project_detail.html">Contract with Zender Company</a>
+            <a routerLink="/audit">{{audit.title}}</a>
             <br>
-            <small>Created 14.08.2014</small>
+            <small>{{audit.startDate | date }} - {{audit.endDate | date }}</small>
           </td>
           <td class="project-completion">
-            <small>Completion with: 48%</small>
-            <div class="progress progress-mini">
-              <div style="width: 48%;" class="progress-bar"></div>
-            </div>
+            <span class="block"><strong>Audit type</strong></span>
+            <small>{{audit.type}}</small>
+          </td>
+          <td class="project-completion">
+            <span class="block"><strong>Ship</strong></span>
+            <small>{{audit.location}}</small>
           </td>
           <td class="project-people">
-            <a href=""><img alt="image" class="img-circle" src="img/a3.jpg"></a>
-            <a href=""><img alt="image" class="img-circle" src="img/a1.jpg"></a>
-            <a href=""><img alt="image" class="img-circle" src="img/a2.jpg"></a>
-            <a href=""><img alt="image" class="img-circle" src="img/a4.jpg"></a>
-            <a href=""><img alt="image" class="img-circle" src="img/a5.jpg"></a>
+            <a *ngFor="let auditer of audit.auditers" tooltip="{{auditer.text}}">
+              <img alt="image" class="img-circle" src="{{getAuditor(auditer.id)?.avatar}}">
+            </a>
           </td>
           <td class="project-actions">
-            <a href="#" class="btn btn-white btn-sm"><i class="fa fa-folder"></i> View </a>
-            <a href="#" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Edit </a>
+            <a routerLink="{{audit.id}}" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Edit </a>
+            <a (click)="removeAudit(audit.id)" class="btn btn-white btn-sm"><i class="fa fa-trash"></i> Delete </a>
           </td>
         </tr>
-        <tr>
-          <td class="project-status">
-            <span class="label label-primary">Active</span>
-          </td>
-          <td class="project-title">
-            <a href="project_detail.html">There are many variations of passages</a>
-            <br>
-            <small>Created 11.08.2014</small>
-          </td>
-          <td class="project-completion">
-            <small>Completion with: 28%</small>
-            <div class="progress progress-mini">
-              <div style="width: 28%;" class="progress-bar"></div>
-            </div>
-          </td>
-          <td class="project-people">
-            <a href=""><img alt="image" class="img-circle" src="img/a7.jpg"></a>
-            <a href=""><img alt="image" class="img-circle" src="img/a6.jpg"></a>
-            <a href=""><img alt="image" class="img-circle" src="img/a3.jpg"></a>
-          </td>
-          <td class="project-actions">
-            <a href="#" class="btn btn-white btn-sm"><i class="fa fa-folder"></i> View </a>
-            <a href="#" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Edit </a>
-          </td>
-        </tr>
-        <tr>
-          <td class="project-status">
-            <span class="label label-default">Unactive</span>
-          </td>
-          <td class="project-title">
-            <a href="project_detail.html">Many desktop publishing packages and web</a>
-            <br>
-            <small>Created 10.08.2014</small>
-          </td>
-          <td class="project-completion">
-            <small>Completion with: 8%</small>
-            <div class="progress progress-mini">
-              <div style="width: 8%;" class="progress-bar"></div>
-            </div>
-          </td>
-          <td class="project-people">
-            <a href=""><img alt="image" class="img-circle" src="img/a5.jpg"></a>
-            <a href=""><img alt="image" class="img-circle" src="img/a3.jpg"></a>
-          </td>
-          <td class="project-actions">
-            <a href="#" class="btn btn-white btn-sm"><i class="fa fa-folder"></i> View </a>
-            <a href="#" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Edit </a>
-          </td>
-        </tr>
-        <tr>
-          <td class="project-status">
-            <span class="label label-primary">Active</span>
-          </td>
-          <td class="project-title">
-            <a href="project_detail.html">Letraset sheets containing</a>
-            <br>
-            <small>Created 22.07.2014</small>
-          </td>
-          <td class="project-completion">
-            <small>Completion with: 83%</small>
-            <div class="progress progress-mini">
-              <div style="width: 83%;" class="progress-bar"></div>
-            </div>
-          </td>
-          <td class="project-people">
-            <a href=""><img alt="image" class="img-circle" src="img/a2.jpg"></a>
-            <a href=""><img alt="image" class="img-circle" src="img/a3.jpg"></a>
-            <a href=""><img alt="image" class="img-circle" src="img/a1.jpg"></a>
-            <a href=""><img alt="image" class="img-circle" src="img/a7.jpg"></a>
-          </td>
-          <td class="project-actions">
-            <a href="#" class="btn btn-white btn-sm"><i class="fa fa-folder"></i> View </a>
-            <a href="#" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Edit </a>
-          </td>
-        </tr>
-        <tr>
-          <td class="project-status">
-            <span class="label label-primary">Active</span>
-          </td>
-          <td class="project-title">
-            <a href="project_detail.html">Contrary to popular belief</a>
-            <br>
-            <small>Created 14.07.2014</small>
-          </td>
-          <td class="project-completion">
-            <small>Completion with: 97%</small>
-            <div class="progress progress-mini">
-              <div style="width: 97%;" class="progress-bar"></div>
-            </div>
-          </td>
-          <td class="project-people">
-            <a href=""><img alt="image" class="img-circle" src="img/a4.jpg"></a>
-          </td>
-          <td class="project-actions">
-            <a href="#" class="btn btn-white btn-sm"><i class="fa fa-folder"></i> View </a>
-            <a href="#" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Edit </a>
-          </td>
-        </tr>
-        <tr>
-          <td class="project-status">
-            <span class="label label-primary">Active</span>
-          </td>
-          <td class="project-title">
-            <a href="project_detail.html">Contract with Zender Company</a>
-            <br>
-            <small>Created 14.08.2014</small>
-          </td>
-          <td class="project-completion">
-            <small>Completion with: 48%</small>
-            <div class="progress progress-mini">
-              <div style="width: 48%;" class="progress-bar"></div>
-            </div>
-          </td>
-          <td class="project-people">
-            <a href=""><img alt="image" class="img-circle" src="img/a1.jpg"></a>
-            <a href=""><img alt="image" class="img-circle" src="img/a2.jpg"></a>
-            <a href=""><img alt="image" class="img-circle" src="img/a4.jpg"></a>
-            <a href=""><img alt="image" class="img-circle" src="img/a5.jpg"></a>
-          </td>
-          <td class="project-actions">
-            <a href="#" class="btn btn-white btn-sm"><i class="fa fa-folder"></i> View </a>
-            <a href="#" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Edit </a>
-          </td>
-        </tr>
-        <tr>
-          <td class="project-status">
-            <span class="label label-primary">Active</span>
-          </td>
-          <td class="project-title">
-            <a href="project_detail.html">There are many variations of passages</a>
-            <br>
-            <small>Created 11.08.2014</small>
-          </td>
-          <td class="project-completion">
-            <small>Completion with: 28%</small>
-            <div class="progress progress-mini">
-              <div style="width: 28%;" class="progress-bar"></div>
-            </div>
-          </td>
-          <td class="project-people">
-            <a href=""><img alt="image" class="img-circle" src="img/a7.jpg"></a>
-            <a href=""><img alt="image" class="img-circle" src="img/a6.jpg"></a>
-            <a href=""><img alt="image" class="img-circle" src="img/a3.jpg"></a>
-          </td>
-          <td class="project-actions">
-            <a href="#" class="btn btn-white btn-sm"><i class="fa fa-folder"></i> View </a>
-            <a href="#" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Edit </a>
-          </td>
-        </tr>
-        <tr>
-          <td class="project-status">
-            <span class="label label-default">Unactive</span>
-          </td>
-          <td class="project-title">
-            <a href="project_detail.html">Many desktop publishing packages and web</a>
-            <br>
-            <small>Created 10.08.2014</small>
-          </td>
-          <td class="project-completion">
-            <small>Completion with: 8%</small>
-            <div class="progress progress-mini">
-              <div style="width: 8%;" class="progress-bar"></div>
-            </div>
-          </td>
-          <td class="project-people">
-            <a href=""><img alt="image" class="img-circle" src="img/a5.jpg"></a>
-            <a href=""><img alt="image" class="img-circle" src="img/a3.jpg"></a>
-          </td>
-          <td class="project-actions">
-            <a href="#" class="btn btn-white btn-sm"><i class="fa fa-folder"></i> View </a>
-            <a href="#" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Edit </a>
-          </td>
-        </tr>
-        <tr>
-          <td class="project-status">
-            <span class="label label-primary">Active</span>
-          </td>
-          <td class="project-title">
-            <a href="project_detail.html">Letraset sheets containing</a>
-            <br>
-            <small>Created 22.07.2014</small>
-          </td>
-          <td class="project-completion">
-            <small>Completion with: 83%</small>
-            <div class="progress progress-mini">
-              <div style="width: 83%;" class="progress-bar"></div>
-            </div>
-          </td>
-          <td class="project-people">
-            <a href=""><img alt="image" class="img-circle" src="img/a2.jpg"></a>
-            <a href=""><img alt="image" class="img-circle" src="img/a3.jpg"></a>
-            <a href=""><img alt="image" class="img-circle" src="img/a1.jpg"></a>
-          </td>
-          <td class="project-actions">
-            <a href="#" class="btn btn-white btn-sm"><i class="fa fa-folder"></i> View </a>
-            <a href="#" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Edit </a>
-          </td>
-        </tr>
-        <tr>
-          <td class="project-status">
-            <span class="label label-primary">Active</span>
-          </td>
-          <td class="project-title">
-            <a href="project_detail.html">Contrary to popular belief</a>
-            <br>
-            <small>Created 14.07.2014</small>
-          </td>
-          <td class="project-completion">
-            <small>Completion with: 97%</small>
-            <div class="progress progress-mini">
-              <div style="width: 97%;" class="progress-bar"></div>
-            </div>
-          </td>
-          <td class="project-people">
-            <a href=""><img alt="image" class="img-circle" src="img/a4.jpg"></a>
-          </td>
-          <td class="project-actions">
-            <a href="#" class="btn btn-white btn-sm"><i class="fa fa-folder"></i> View </a>
-            <a href="#" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Edit </a>
-          </td>
-        </tr>
-        <tr>
-          <td class="project-status">
-            <span class="label label-primary">Active</span>
-          </td>
-          <td class="project-title">
-            <a href="project_detail.html">There are many variations of passages</a>
-            <br>
-            <small>Created 11.08.2014</small>
-          </td>
-          <td class="project-completion">
-            <small>Completion with: 28%</small>
-            <div class="progress progress-mini">
-              <div style="width: 28%;" class="progress-bar"></div>
-            </div>
-          </td>
-          <td class="project-people">
-            <a href=""><img alt="image" class="img-circle" src="img/a7.jpg"></a>
-            <a href=""><img alt="image" class="img-circle" src="img/a6.jpg"></a>
-            <a href=""><img alt="image" class="img-circle" src="img/a3.jpg"></a>
-          </td>
-          <td class="project-actions">
-            <a href="#" class="btn btn-white btn-sm"><i class="fa fa-folder"></i> View </a>
-            <a href="#" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Edit </a>
-          </td>
+        <tr *ngIf="!audits.length">
+          <div class="text-center p-xs">
+            No records availables
+          </div>
         </tr>
         </tbody>
       </table>

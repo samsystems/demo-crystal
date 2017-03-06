@@ -9,8 +9,7 @@ import {FormsModule} from '@angular/forms';
 import {MainRoutesModule} from './main.routes';
 import {MainComponent} from './components/main/main.component';
 import {InboxComponent} from './components/inbox/inbox.component';
-import { NotificationListComponent } from './components/notification/notification-list/notification-list.component';
-import { NotificationItemComponent } from './components/notification/notification-item/notification-item.component';
+import {DocumentService} from "../document-manager/services/document.service";
 
 @NgModule({
   imports: [
@@ -22,11 +21,9 @@ import { NotificationItemComponent } from './components/notification/notificatio
   ],
   declarations: [
     MainComponent,
-    InboxComponent,
-    NotificationListComponent,
-    NotificationItemComponent
+    InboxComponent
   ],
-  providers: []
+  providers: [DocumentService]
 })
 export class MainModule {
 }

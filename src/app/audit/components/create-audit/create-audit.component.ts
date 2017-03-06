@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {Audit} from '../../../models/audit';
+import {AuditService} from '../../services/audit.service';
+import {Location} from '@angular/common';
+
 
 @Component({
   selector: 'app-create-audit',
@@ -7,9 +11,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateAuditComponent implements OnInit {
 
-  constructor() { }
+  constructor(private audit: AuditService,
+              private location: Location) {
+  }
 
   ngOnInit() {
   }
 
+  create(audit: Audit) {
+    this.audit.save(audit);
+    this.location.back();
+  }
+
+  onCancel() {
+    this.location.back();
+  }
 }

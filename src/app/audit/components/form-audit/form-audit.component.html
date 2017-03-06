@@ -1,55 +1,50 @@
-<div class="mail-box-header">
-  <h2>
-    New Audit
-  </h2>
-</div>
 <div class="mail-box">
   <div class="mail-body">
-    <form #auditForm="ngForm" novalidate>
+    <form id="auditForm" #auditForm="ngForm" novalidate (ngSubmit)="submit(auditForm)">
       <div class="row no-margins">
         <div class="col-md-8 form-group">
           <label>Title</label>
-          <input type="text" placeholder="Audit title" class="form-control" name="title" ngModel required>
+          <input type="text" placeholder="Audit title" class="form-control" name="title" [(ngModel)]="audit.title" required>
         </div>
         <div class="col-md-4 form-group">
           <label>Audit type</label>
-          <select class="form-control" name="auditType">
-            <option>Internal ISM</option>
+          <select class="form-control" name="type" [(ngModel)]="audit.type" required>
+            <option *ngFor="let type of auditTypes" [value]="type">{{type}}</option>
           </select>
         </div>
       </div>
       <div class="row no-margins">
         <div class="col-md-3 form-group">
           <label>Start date</label>
-          <input type="date" placeholder="Start date" class="form-control" name="startDate" ngModel required>
+          <input type="date" placeholder="Start date" class="form-control" name="startDate" [(ngModel)]="audit.startDate" required>
         </div>
         <div class="col-md-3 form-group">
           <label>End date</label>
-          <input type="date" placeholder="End date" class="form-control" name="endDate" ngModel required>
+          <input type="date" placeholder="End date" class="form-control" name="endDate" [(ngModel)]="audit.endDate" required>
         </div>
         <div class="col-md-3 form-group">
           <label>Auditers</label>
-          <ng-select [multiple]="true" (data)="refreshAuditers($event)"
-                     [items]="auditers"></ng-select>
+          <ng-select [multiple]="true" (data)="refreshAuditers($event)" [active]="audit.auditers"
+                     [items]="usersAuditers"></ng-select>
         </div>
         <div class="col-md-3 form-group">
           <label>Locations</label>
-          <select class="form-control" name="location">
-            <option>Crystal Serenity</option>
+          <select class="form-control" name="location" [(ngModel)]="audit.location">
+            <option *ngFor="let ship of locations" [value]="ship">{{ship}}</option>
           </select>
         </div>
       </div>
       <div class="row no-margins">
         <div class="col-md-12 form-group">
           <label>Summary</label>
-          <textarea name="summary" class="form-control" ngModel style="width: 100%" rows="3"></textarea>
+          <textarea name="summary" class="form-control" [(ngModel)]="audit.summary" style="width: 100%" rows="3"></textarea>
         </div>
       </div>
     </form>
   </div>
 
   <div class="mail-body text-right tooltip-demo">
-    <button class="btn btn-sm btn-primary"><i class="fa fa-floppy-o"></i> Save</button>
-    <button type="reset" (click)="cancel()" class="btn btn-white btn-sm"><i class="fa fa-times"></i> Discard</button>
+    <button form="auditForm" type="submit" class="btn btn-sm btn-primary"><i class="fa fa-floppy-o"></i> Save</button>
+    <button form="auditForm" type="reset" (click)="cancel.emit()" class="btn btn-white btn-sm"><i class="fa fa-times"></i> Discard</button>
   </div>
 </div>
