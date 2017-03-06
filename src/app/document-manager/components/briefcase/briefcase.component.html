@@ -7,6 +7,13 @@
           <div class="hr-line-dashed"></div>
           <h5 class="tag-title">Tags</h5>
           <ul class="tag-list">
+
+            <li *ngFor="let key of ranksKey">
+              <a [routerLink]="['/briefcase']" [queryParams]="{ rank: key}">
+                <i class="fa fa-tag"></i> {{ranks[key].text}} <span class="badge">{{ranks[key].count}}</span>
+              </a>
+            </li>
+
             <li *ngFor="let key of tagsKey">
               <a [routerLink]="['/briefcase']" [queryParams]="{ tag: key}">
                 <i class="fa fa-tag"></i> {{key}} <span class="badge">{{tags[key]['count']}}</span>

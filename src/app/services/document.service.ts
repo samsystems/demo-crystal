@@ -343,4 +343,49 @@ export class DocumentService {
     }
     return documents.filter((doc) => this.hasTag(doc, tag));
   }
+
+  getDocumentsByRankId(rankId: string, documents?: Document[]): Document[] {
+    if (!documents)
+      documents = this.documents;
+    return documents.filter((doc) => (doc.primary.findIndex((rank) => rank.id === rankId) != -1 || doc.secondary.findIndex((rank) => rank.id === rankId) != -1 ));
+  }
+
+  getDocumentsRanks(documents?: Document[]) {
+    let allRanks = [];
+    let result = {};
+
+    //get all ranks
+    if (!documents)
+      documents = this.documents;
+
+    for (let i = 0; i < documents.length; i++){
+      if(_.isArray(documents[i].primary))
+        allRanks.push(...documents[i].primary);
+
+      if(_.isArray(documents[i].secondary))
+        allRanks.push(...documents[i].secondary);
+    }
+
+
+    // Mechanism to get group tags using dictionaries
+    for (let i = 0; i < allRanks.length; i++) {
+      const rank = allRanks[i];
+
+      if (result[rank.id])
+        result[rank.id].count += 1;
+      else
+        result[rank.id] = {
+          count: 1,
+          text: rank.text
+        }
+    }
+    return result;
+  }
+
+  getReleaseRanks(realeses: Release[]) {
+    let ranks = JSON.parse(localStorage.getItem('ranks'));
+    if (ranks)
+      return ranks;
+    return [];
+  }
 }
