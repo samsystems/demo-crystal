@@ -85,6 +85,22 @@ export class InboxComponent implements OnInit, OnDestroy {
         this.title = 'Regulations for my Department';
         this.documents = this.documentService.getRegulationForMyDepartment(this.auth.getUser());
         break;
+      case 'non-conformances':
+        this.title = 'Non Conformances';
+        this.documents = this.documentService.findAll();
+        break;
+      case 'company-policies':
+        this.title = 'Company Policies';
+        this.documents = this.documentService.findAll();
+        break;
+      case 'general-regulations':
+        this.title = 'General Regulations';
+        this.documents = this.documentService.findAll();
+        break;
+      case 'others-misc':
+        this.title = 'Others misc';
+        this.documents = this.documentService.findAll();
+        break;
     }
   }
 

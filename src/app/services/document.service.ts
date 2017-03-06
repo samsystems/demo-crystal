@@ -249,16 +249,9 @@ export class DocumentService {
     return this.getDocumentsByStatus(Status.Permanent);
   }
 
-  /**
-   * Any audit findings that are assigned to the Executive Housekeeper will show up here.
-   */
-  getMyAudits(user: User) {
-    return this.documents.filter((doc) => this.isMember(doc, user));
-  }
-
   // Any Non-Conformances raised by the Executive Housekeeper.
-  getMyNonComformanced() {
-
+  getMyNonComformances() {
+    return this.documents;
   }
 
   /**
@@ -298,26 +291,16 @@ export class DocumentService {
   }
 
   /**
-   *  Additional Regulations for my Department are requirements that are delegated by the Executive Housekeeper
-   *  to other members of his/her department.  This will allow for clear oversight of responsibilities.
-   * @param user
-   * @returns {Document[]}
-   */
-  getMyAditionalRegulation(user: User): Document[] {
-    return this.documents.filter((doc) => this.isMember(doc, user) || this.isOwner(doc, user));
-  }
-
-  /*
-   Company Policies and General Regulations for all Ships Company is a standard set of regulations
-   that all users will see regardless of sign-on rank.  These will cover items such as Anti-Trust Policy,
-   Language Policy, Prohibited Items onboard, dangerous sports ashore, etc...
+   * Company Policies and General Regulations for all Ships Company is a standard set of regulations
+   * that all users will see regardless of sign-on rank.  These will cover items such as Anti-Trust Policy,
+   * Language Policy, Prohibited Items on board, dangerous sports ashore, etc...
    */
   getCompanyPolicies() {
-    // dudas
+    return this.documents;
   }
 
   getGeneralRegulation() {
-    // dudas
+    return this.documents;
   }
 
   /**
