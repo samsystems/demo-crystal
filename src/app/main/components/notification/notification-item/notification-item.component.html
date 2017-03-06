@@ -1,0 +1,23 @@
+<li class="list-group-item" [class.active]="selected">
+  <div class="icheckbox_square-green" [class.checked]="selected" (click)="checkItem()">
+    <input type="checkbox" class="i-checks" style="position: absolute; opacity: 0;">
+  </div>
+  <a [routerLink]="['/briefcase/detail',document.id]">
+    <small class="pull-right text-muted"> {{document.date | date}}</small>
+    <strong class="m-l-xs">{{document.name}}</strong>
+    <div class="small m-t-xs m-l-lg">
+      <p>
+        {{document.comments}}
+      </p>
+
+    </div>
+  </a>
+
+  <div class="m-l-lg">
+    <span *ngFor="let tag of document.tags">
+      <a [routerLink]="['/briefcase']" [queryParams]="{ tag: tag}">
+        <span class="tag label label-danger">{{tag}}</span>
+      </a>
+    </span>
+  </div>
+</li>

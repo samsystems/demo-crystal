@@ -1,0 +1,7 @@
+.tag{
+  margin: 5px;
+}
+
+li.list-group-item:first-child{
+  border-bottom: 1px solid #e7eaec;
+}

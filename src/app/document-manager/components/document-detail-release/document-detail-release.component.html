@@ -1,6 +1,6 @@
 <div class="row padding-top border-bottom text-center">
   <div class="col-md-4 project-status">
-    <span>{{ release.daysAgo }} days ago</span>
+    <span>{{ release.date | date:'medium' }}</span>
   </div>
   <div class="col-md-4 project-title">
     <a>v{{ release.version }}</a>

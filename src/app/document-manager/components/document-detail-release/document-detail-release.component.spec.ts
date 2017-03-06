@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { DocumentDetailReleaseComponent } from './document-detail-release.component';
+import {DocumentDetailReleaseComponent} from './document-detail-release.component';
 
 describe('DocumentDetailReleaseComponent', () => {
   let component: DocumentDetailReleaseComponent;
@@ -8,9 +8,9 @@ describe('DocumentDetailReleaseComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DocumentDetailReleaseComponent ]
+      declarations: [DocumentDetailReleaseComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

@@ -1,0 +1,27 @@
+<div class="row">
+  <div class="col-lg-10 col-lg-offset-1">
+    <div class="ibox article">
+      <div class="ibox-content">
+        <button class="btn btn-primary" (click)="goBacK()">Back</button>
+        <div class="pull-right">
+          <span class="label label-primary">{{ document.status }}</span>
+        </div>
+        <div>
+          <div class="pull-right">
+            <span *ngFor="let tag of document.tags" class="label label-default">{{ tag }}</span>
+          </div>
+        </div>
+        <div class="text-center article-title">
+          <span class="text-muted"><i class="fa fa-clock-o"></i> {{ document.updated | date}}</span>
+          <h1>
+            {{document.name}}
+          </h1>
+        </div>
+        <div [froalaView]="document.content" *ngIf="!showChange"></div>
+        <div diff [right]="document.content" [left]="previousDocument.content" *ngIf="showChange"></div>
+        <hr>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="fab"><button class="btn btn-primary btn-circle btn-lg animation-rotate" type="button" (click)="showChanges()" tooltip="Show/Hide changes"><i class="fa fa-exchange"></i></button></div>

@@ -1,18 +1,28 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {User} from '../../../models/user';
+import {AuthService} from '../../services/auth.service';
 
-declare var jQuery: any;
 
 @Component({
-  selector: 'navigation',
+  selector: 'app-navigation',
   templateUrl: 'navigation.component.html'
 })
 
-export class NavigationComponent {
+export class NavigationComponent implements OnInit {
 
-  constructor() {
+  user: User;
+
+  constructor(private auth: AuthService) {
   }
 
-  ngAfterViewInit() {
-    jQuery('#side-menu').metisMenu();
+  ngOnInit() {
+    this.user = this.auth.getUser();
+    this.auth.getUserObservable().subscribe((user) => {
+      this.user = user;
+    })
+  }
+
+  logout() {
+    this.auth.logout();
   }
 }

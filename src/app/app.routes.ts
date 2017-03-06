@@ -1,48 +1,38 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
-
-// Layouts
 import {BaseLayoutComponent} from './core/components/base-layout/base-layout.component';
+import {AuthGuard} from './core/guards/auth-guard';
 import {BlankLayoutComponent} from './core/components/blank-layout/blank-layout.component';
 import {LoginComponent} from './core/components/login/login.component';
+
 
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'inbox',
-    pathMatch: 'full',
+    redirectTo: 'home',
+    pathMatch: 'full'
   },
   {
     path: '',
     component: BaseLayoutComponent,
-    data: {
-      title: 'Home'
-    },
+    canActivateChild: [AuthGuard],
     children: [
       {
-        path: 'inbox',
-        loadChildren: './inbox/inbox.module#InboxModule'
+        path: 'home',
+        loadChildren: './main/main.module#MainModule'
       },
       {
-        path: 'file-manager',
+        path: 'briefcase',
         loadChildren: './document-manager/document-manager.module#DocumentManagerModule'
+      },
+      {
+        path: 'documents',
+        loadChildren: './document-manager/document-manager.module#DocumentManagerModule'
+      },
+      {
+        path: 'audit',
+        loadChildren: './audit/audit.module#AuditModule'
       }
-      /*{
-       path: 'components',
-       loadChildren: './components/components.module#ComponentsModule'
-       },
-       {
-       path: 'icons',
-       loadChildren: './icons/icons.module#IconsModule'
-       },
-       {
-       path: 'widgets',
-       loadChildren: './widgets/widgets.module#WidgetsModule'
-       },
-       {
-       path: 'charts',
-       loadChildren: './chartjs/chartjs.module#ChartJSModule'
-       }*/
     ]
   },
   {

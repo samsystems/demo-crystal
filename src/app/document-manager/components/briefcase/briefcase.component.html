@@ -1,0 +1,45 @@
+<div class="row">
+  <div class="col-lg-3">
+    <div class="ibox float-e-margins">
+      <div class="ibox-content">
+        <div class="file-manager">
+          <button class="btn btn-primary btn-block" routerLink="/briefcase/create">New Document</button>
+          <div class="hr-line-dashed"></div>
+          <h5 class="tag-title">Tags</h5>
+          <ul class="tag-list">
+            <li *ngFor="let key of tagsKey">
+              <a [routerLink]="['/briefcase']" [queryParams]="{ tag: key}">
+                <i class="fa fa-tag"></i> {{key}} <span class="badge">{{tags[key]['count']}}</span>
+              </a>
+            </li>
+          </ul>
+          <div class="clearfix"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-9">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="file-box" *ngFor="let document of documents">
+          <div class="file">
+            <span class="corner-top" (click)="removeDocument(document.id)"><i class="fa fa-trash-o"></i></span>
+            <a routerLink="detail/{{ document.id }}">
+              <span class="corner"></span>
+
+              <div class="icon">
+                <i class="fa fa-file"></i>
+              </div>
+              <div class="file-name">
+                {{ document.name }}
+                <br>
+                <small>Added: {{ document.date | date:'medium'}}</small>
+              </div>
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
