@@ -1,13 +1,6 @@
 <form #docForm="ngForm" novalidate (ngSubmit)="createDoc(docForm)" (keydown.enter)="$event.preventDefault()">
 
   <div class="mail-box-header">
-    <div class="pull-right tooltip-demo">
-      <label class="btn btn-sm btn-primary" *ngIf="!uploader.queue.length">
-        <input type="file" class="hidden" ng2FileSelect [uploader]="uploader">
-        <i class="fa fa-upload" aria-hidden="true"></i>
-        Attach
-      </label>
-    </div>
     <div class="pull-right form-group m-r-xs">
       <input placeholder="Version" name="version" class="input-sm form-control"
              autocomplete="off" style="width: 80px" [(ngModel)]="initVersion">

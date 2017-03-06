@@ -6,6 +6,7 @@ import {User} from "../models/user";
 import {AuthService} from '../core/services/auth.service';
 import {Observable, Subject} from "rxjs";
 import {Release} from '../models/release';
+import * as _ from 'lodash';
 
 @Injectable()
 export class DocumentService {
@@ -37,11 +38,11 @@ export class DocumentService {
       localStorage.setItem('tags', JSON.stringify(tags));
     }
     let documentLogs = JSON.parse(localStorage.getItem('document-logs'));
-    if(documentLogs) {
+    if (documentLogs) {
       this.documentLogs = documentLogs;
     }
     let documentReleases = JSON.parse(localStorage.getItem('document-releases'));
-    if(documentReleases) {
+    if (documentReleases) {
       this.documentReleases = documentReleases;
     }
   }
@@ -57,10 +58,10 @@ export class DocumentService {
   }
 
   changeDocumentStatus(status: string, documentID: string) {
-    let document= this.findById(documentID);
+    let document = this.findById(documentID);
     let pos = this.documents.indexOf(document);
     document.status = status;
-    if(pos != -1) {
+    if (pos != -1) {
       this.documents.splice(pos, 1);
     }
     const documentLog: DocumentLog = {
@@ -77,7 +78,7 @@ export class DocumentService {
   removeDocument(documentID: string) {
     let document = this.findById(documentID);
     let pos = this.documents.indexOf(document);
-    if(pos != -1) {
+    if (pos != -1) {
       this.documents.splice(pos, 1);
     }
     this.syncStore();
@@ -121,7 +122,7 @@ export class DocumentService {
    *
    * @returns {Observable<T>}
    */
-  getDocuments():Observable<Document[]>{
+  getDocuments(): Observable<Document[]> {
     return this.documents$.asObservable();
   }
 
@@ -132,7 +133,9 @@ export class DocumentService {
    * @returns {boolean}
    */
   isPrimaryResponsability(document: Document, user: User): boolean {
-    return document.primary.findIndex((rank) => rank.id === user.rank.id) != -1
+    return (_.isArray(document.primary))
+      ? document.primary.findIndex((rank) => rank.id === user.rank.id) != -1
+      : false;
   }
 
   /**
@@ -161,8 +164,11 @@ export class DocumentService {
    * @param tag
    * @returns {boolean}
    */
-  hasTag(document: Document, tag: string) {
-    return document.tags.findIndex((itemTag) => itemTag === tag) != -1;
+  hasTag(document: Document, tag: string): boolean {
+    const tags = _.get(document, 'tags', []);
+    return (_.isArray(tags))
+      ? tags.findIndex((itemTag) => itemTag === tag) != -1
+      : false;
   }
 
   /**
@@ -170,17 +176,17 @@ export class DocumentService {
    * @param status
    * @returns {Document[]}
    */
-  getDocumentsByStatus(status: string): Document[] {
-    if(status ===-1)
+  getDocumentsByStatus(status: Status): Document[] {
+    if (status === -1)
       return this.documents;
-    return this.documents.filter((doc) => doc.status === status);
+    return this.documents.filter((doc) => doc.status === Status[status]);
   }
 
   /**
    * get document with Draft status
    * @returns {Document[]}
    */
-  getDraftDocuments():Document[]{
+  getDraftDocuments(): Document[] {
     return this.getDocumentsByStatus(Status.Draft);
   }
 
@@ -189,7 +195,7 @@ export class DocumentService {
    * get document with Pending_Approval status
    * @returns {Document[]}
    */
-  getPending_ApprovalDocuments():Document[]{
+  getPending_ApprovalDocuments(): Document[] {
     return this.getDocumentsByStatus(Status.Pending_Approval);
   }
 
@@ -197,7 +203,7 @@ export class DocumentService {
    * get document with Approved status
    * @returns {Document[]}
    */
-  getApprovedDocuments():Document[]{
+  getApprovedDocuments(): Document[] {
     return this.getDocumentsByStatus(Status.Approved);
   }
 
@@ -205,7 +211,7 @@ export class DocumentService {
    * get document with Pending_Approval status
    * @returns {Document[]}
    */
-  getPublishedDocuments():Document[]{
+  getPublishedDocuments(): Document[] {
     return this.getDocumentsByStatus(Status.Published);
   }
 
@@ -213,7 +219,7 @@ export class DocumentService {
    * get document with Pending_Approval status
    * @returns {Document[]}
    */
-  getPermanentDocuments():Document[]{
+  getPermanentDocuments(): Document[] {
     return this.getDocumentsByStatus(Status.Permanent);
   }
 
@@ -225,7 +231,7 @@ export class DocumentService {
   }
 
   // Any Non-Conformances raised by the Executive Housekeeper.
-  getMyNonComformanced(){
+  getMyNonComformanced() {
 
   }
 
@@ -260,7 +266,7 @@ export class DocumentService {
    * @param user
    * @returns {Document[]}
    */
-  getMyAditionalRegulation(user: User):Document[]{
+  getMyAditionalRegulation(user: User): Document[] {
     return this.documents.filter((doc) => this.isMember(doc, user) || this.isOwner(doc, user));
   }
 
@@ -269,27 +275,30 @@ export class DocumentService {
    that all users will see regardless of sign-on rank.  These will cover items such as Anti-Trust Policy,
    Language Policy, Prohibited Items onboard, dangerous sports ashore, etc...
    */
-  getCompanyPolicies(){
+  getCompanyPolicies() {
     // dudas
   }
 
-  getGeneralRegulation(){
+  getGeneralRegulation() {
     // dudas
   }
 
   /**
    * Return an array of tags
    */
-  getTags():any{
+  getTags(): any {
     let allTags = [];
     let result = {};
 
     //get all tags
-    for (let i = 0;  i < this.documents.length; i++)
-      allTags.push(...this.documents[i].tags);
+    for (let i = 0; i < this.documents.length; i++) {
+      const tags = _.get(this.documents[i], 'tags', []);
+      if (_.isArray(tags))
+        allTags.push(...tags);
+    }
 
     // Mechanism to get group tags using dictionaries
-    for (let i = 0;  i < allTags.length; i++) {
+    for (let i = 0; i < allTags.length; i++) {
       const tag = allTags[i];
 
       //if tags exist

@@ -37,16 +37,21 @@ export class MainComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.syncData(this.documentService.findAll());
     this.documentService.getDocuments().subscribe((documents) => {
-      this.inbox = documents.length;
-      this.primaryResponsibilities = this.documentService.getMyPrimaryResponsabilities(this.auth.getUser()).length;
-      this.tags = this.documentService.getTags();
-      this.tagsKeys = Object.keys(this.tags);
-
-      //Count of documents by status
-      this.draft = this.documentService.getDraftDocuments().length;
-      this.pendingApproval = this.documentService.getPending_ApprovalDocuments().length;
-      this.approved = this.documentService.getApprovedDocuments().length;
+      this.syncData(documents);
     });
+  }
+
+  private syncData(documents) {
+    this.inbox = documents.length;
+    this.primaryResponsibilities = this.documentService.getMyPrimaryResponsabilities(this.auth.getUser()).length;
+    this.tags = this.documentService.getTags();
+    this.tagsKeys = Object.keys(this.tags);
+
+    //Count of documents by status
+    this.draft = this.documentService.getDraftDocuments().length;
+    this.pendingApproval = this.documentService.getPending_ApprovalDocuments().length;
+    this.approved = this.documentService.getApprovedDocuments().length;
   }
 }
