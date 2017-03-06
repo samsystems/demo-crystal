@@ -13,6 +13,7 @@ export class DocumentService {
 
   protected documents: Document[] = [];
   protected documents$ = new Subject<Document[]>();
+  protected documentLogs$ = new Subject<DocumentLog[]>();
   protected documentLogs: Array<DocumentLog> = [];
   protected documentReleases: Array<Release> = [];
 
@@ -57,6 +58,16 @@ export class DocumentService {
     this.syncStore();
   }
 
+  updateDoc(doc: Document, changes: DocumentLog) {
+    let p = _.findIndex(this.documents, {'id': doc.id});
+    if (p >= 0) {
+      this.documents[p] = doc;
+    }
+    this.createDocumentLog(changes);
+    this.syncStore();
+    return doc;
+  }
+
   changeDocumentStatus(status: string, documentID: string) {
     let document = this.findById(documentID);
     let pos = this.documents.indexOf(document);
@@ -87,7 +98,8 @@ export class DocumentService {
 
   createDocumentLog(documentLog: DocumentLog) {
     this.documentLogs.push(documentLog);
-    localStorage.setItem('document-logs', JSON.stringify(this.documentLogs))
+    localStorage.setItem('document-logs', JSON.stringify(this.documentLogs));
+    this.documentLogs$.next(this.documentLogs);
   }
 
   findById(id): Document {
@@ -124,6 +136,10 @@ export class DocumentService {
    */
   getDocuments(): Observable<Document[]> {
     return this.documents$.asObservable();
+  }
+
+  getDocumentLogs(): Observable<DocumentLog[]> {
+    return this.documentLogs$.asObservable();
   }
 
   /**

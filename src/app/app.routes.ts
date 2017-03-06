@@ -26,6 +26,10 @@ export const routes: Routes = [
         loadChildren: './document-manager/document-manager.module#DocumentManagerModule'
       },
       {
+        path: 'documents',
+        loadChildren: './document-manager/document-manager.module#DocumentManagerModule'
+      },
+      {
         path: 'audit',
         loadChildren: './audit/audit.module#AuditModule'
       }
