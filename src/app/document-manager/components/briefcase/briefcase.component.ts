@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import {DocumentService} from '../../services/document.service';
-import { Document } from '../../../models/document';
+import {Component, OnInit} from '@angular/core';
+import {Document} from '../../../models/document';
+import {DocumentService} from '../../../services/document.service';
 
 @Component({
   selector: 'app-briefcase',
@@ -11,7 +11,8 @@ export class BriefcaseComponent implements OnInit {
 
   private _documents: Array<Document>;
 
-  constructor(private documentService: DocumentService) { }
+  constructor(private documentService: DocumentService) {
+  }
 
   ngOnInit() {
     this._documents = this.documentService.findAll();

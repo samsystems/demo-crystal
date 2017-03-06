@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import {DocumentService} from '../../services/document.service';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {DocumentLog} from '../../../models/document-log';
 import {Document, Status} from '../../../models/document';
 import {Release} from '../../../models/release';
+import {DocumentService} from '../../../services/document.service';
+import * as uuid from 'uuid';
+import {AuthService} from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-document-detail',
@@ -13,17 +15,40 @@ export class DocumentDetailComponent implements OnInit {
   states: Array<DocumentLog>;
   releases: Array<Release>;
   document: Document;
+  documentContent: string;
+  changes: string;
   btnText: string = '';
   id: string;
+  version: string;
 
-  constructor(private documentService: DocumentService, private route: ActivatedRoute) { }
+  constructor(private documentService: DocumentService,
+              private route: ActivatedRoute,
+              private auth: AuthService) {
+  }
 
   ngOnInit() {
-    this.route.params.subscribe(params=>this.id=params['id']);
+    this.route.params.subscribe(params => {
+      this.id = params['id'];
+      this.syncData();
+    });
+    this.documentService.getDocuments().subscribe(() => {
+      this.syncData()
+    });
+    this.documentService.getDocumentLogs().subscribe(() => {
+      this.states = this.documentService.findDocumentLogById(this.id);
+      this.states.reverse();
+    })
+  }
+
+  syncData() {
+    this.version = null;
+    this.changes = null;
     this.document = this.documentService.findById(this.id);
+    this.documentContent = this.document.content;
     this.states = this.documentService.findDocumentLogById(this.id);
     this.releases = this.documentService.findDocumentReleaseById(this.id);
     this.changeBtnText();
+    this.states.reverse();
   }
 
   changeStatus() {
@@ -67,5 +92,31 @@ export class DocumentDetailComponent implements OnInit {
       default:
         break;
     }
+  }
+
+  updateDocumentContent() {
+    const documentLog: DocumentLog = {
+      id: uuid.v4(),
+      user: this.auth.getUser(),
+      document: this.document,
+      changes: this.changes,
+      date: Date.now()
+    };
+    this.documentService.updateDoc(this.document, documentLog);
+    this.changes = null;
+  }
+
+  newVersion() {
+    const documentLog: DocumentLog = {
+      id: uuid.v4(),
+      user: this.auth.getUser(),
+      document: this.document,
+      changes: 'New Version of the document',
+      date: Date.now()
+    };
+    this.document.status = Status[Status.Draft];
+    this.document.version = this.version;
+    this.documentService.updateDoc(this.document, documentLog);
+    this.version = null;
   }
 }

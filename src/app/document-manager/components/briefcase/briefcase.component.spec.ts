@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { BriefcaseComponent } from './briefcase.component';
+import {BriefcaseComponent} from './briefcase.component';
 
 describe('BriefcaseComponent', () => {
   let component: BriefcaseComponent;
@@ -8,9 +8,9 @@ describe('BriefcaseComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BriefcaseComponent ]
+      declarations: [BriefcaseComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

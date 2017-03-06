@@ -1,13 +1,6 @@
 <form #docForm="ngForm" novalidate (ngSubmit)="createDoc(docForm)" (keydown.enter)="$event.preventDefault()">
 
   <div class="mail-box-header">
-    <div class="pull-right tooltip-demo">
-      <label class="btn btn-sm btn-primary" *ngIf="!uploader.queue.length">
-        <input type="file" class="hidden" ng2FileSelect [uploader]="uploader">
-        <i class="fa fa-upload" aria-hidden="true"></i>
-        Attach
-      </label>
-    </div>
     <div class="pull-right form-group m-r-xs">
       <input placeholder="Version" name="version" class="input-sm form-control"
              autocomplete="off" style="width: 80px" [(ngModel)]="initVersion">
@@ -33,7 +26,7 @@
       <div class="row no-margins">
         <div class="col-md-6 form-group">
           <label>Secondary</label>
-          <ng-select [multiple]="true" (data)="refreshSecundary($event)"
+          <ng-select [multiple]="true" (data)="refreshSecondary($event)"
                      [items]="ranks"></ng-select>
         </div>
         <div class="col-md-6 form-group">
@@ -43,7 +36,7 @@
       </div>
       <div class="row no-margins">
         <div class="col-md-12 form-group">
-          <label>Comments</label>
+          <label>Summary</label>
           <textarea name="comments" class="form-control" ngModel style="width: 100%" rows="3"></textarea>
         </div>
       </div>

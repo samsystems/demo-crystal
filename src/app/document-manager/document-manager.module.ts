@@ -18,7 +18,8 @@ import {FormsModule} from '@angular/forms';
 import {DocumentDetailComponent} from './components/document-detail/document-detail.component';
 import {DocumentDetailFlowComponent} from './components/document-detail-flow/document-detail-flow.component';
 import {DocumentDetailReleaseComponent} from './components/document-detail-release/document-detail-release.component';
-import {DocumentService} from './services/document.service';
+import { ViewDocComponent } from './components/view-doc/view-doc.component';
+import { ReadDocComponent } from './components/read-doc/read-doc.component';
 
 @NgModule({
   imports: [
@@ -39,9 +40,11 @@ import {DocumentService} from './services/document.service';
     CreateDocComponent,
     DocumentDetailComponent,
     DocumentDetailFlowComponent,
-    DocumentDetailReleaseComponent
+    DocumentDetailReleaseComponent,
+    ViewDocComponent,
+    ReadDocComponent
   ],
-  providers: [DocumentService]
+  providers: []
 })
 export class DocumentManagerModule {
 }

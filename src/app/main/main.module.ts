@@ -9,6 +9,8 @@ import {FormsModule} from '@angular/forms';
 import {MainRoutesModule} from './main.routes';
 import {MainComponent} from './components/main/main.component';
 import {InboxComponent} from './components/inbox/inbox.component';
+import { NotificationListComponent } from './components/notification/notification-list/notification-list.component';
+import { NotificationItemComponent } from './components/notification/notification-item/notification-item.component';
 
 @NgModule({
   imports: [
@@ -20,8 +22,11 @@ import {InboxComponent} from './components/inbox/inbox.component';
   ],
   declarations: [
     MainComponent,
-    InboxComponent
-  ]
+    InboxComponent,
+    NotificationListComponent,
+    NotificationItemComponent
+  ],
+  providers: []
 })
 export class MainModule {
 }

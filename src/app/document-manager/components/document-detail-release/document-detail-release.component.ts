@@ -9,7 +9,8 @@ export class DocumentDetailReleaseComponent implements OnInit {
 
   @Input() release: Object;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }
