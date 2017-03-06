@@ -5,31 +5,13 @@
         <div class="file-manager">
           <button class="btn btn-primary btn-block" routerLink="/briefcase/create">New Document</button>
           <div class="hr-line-dashed"></div>
-          <h5>Show:</h5>
-          <a href="#" class="file-control active">Ale</a>
-          <a href="#" class="file-control">Documents</a>
-          <a href="#" class="file-control">Audio</a>
-          <a href="#" class="file-control">Images</a>
-          <div class="hr-line-dashed"></div>
-          <h5>Folders</h5>
-          <ul class="folder-list" style="padding: 0">
-            <li><a href=""><i class="fa fa-folder"></i> Files</a></li>
-            <li><a href=""><i class="fa fa-folder"></i> Pictures</a></li>
-            <li><a href=""><i class="fa fa-folder"></i> Web pages</a></li>
-            <li><a href=""><i class="fa fa-folder"></i> Illustrations</a></li>
-            <li><a href=""><i class="fa fa-folder"></i> Films</a></li>
-            <li><a href=""><i class="fa fa-folder"></i> Books</a></li>
-          </ul>
           <h5 class="tag-title">Tags</h5>
-          <ul class="tag-list" style="padding: 0">
-            <li><a href="">Family</a></li>
-            <li><a href="">Work</a></li>
-            <li><a href="">Home</a></li>
-            <li><a href="">Children</a></li>
-            <li><a href="">Holidays</a></li>
-            <li><a href="">Music</a></li>
-            <li><a href="">Photography</a></li>
-            <li><a href="">Film</a></li>
+          <ul class="tag-list">
+            <li *ngFor="let key of tagsKey">
+              <a [routerLink]="['/briefcase']" [queryParams]="{ tag: key}">
+                <i class="fa fa-tag"></i> {{key}} <span class="badge">{{tags[key]['count']}}</span>
+              </a>
+            </li>
           </ul>
           <div class="clearfix"></div>
         </div>

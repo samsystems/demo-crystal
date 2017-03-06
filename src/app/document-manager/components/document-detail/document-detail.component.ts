@@ -37,7 +37,10 @@ export class DocumentDetailComponent implements OnInit {
     this.documentService.getDocumentLogs().subscribe(() => {
       this.states = this.documentService.findDocumentLogById(this.id);
       this.states.reverse();
-    })
+    });
+    this.documentService.getDocumentReleases().subscribe(() => {
+      this.releases = this.documentService.findDocumentReleaseById(this.id);
+    });
   }
 
   syncData() {

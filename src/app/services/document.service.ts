@@ -17,6 +17,7 @@ export class DocumentService {
   protected documentLogs$ = new Subject<DocumentLog[]>();
   protected documentLogs: Array<DocumentLog> = [];
   protected documentReleases: Array<Release> = [];
+  protected documentReleases$ = new Subject<Release[]>();
 
   //this variable allow to handel what documents
   // we want to show in main components
@@ -126,6 +127,7 @@ export class DocumentService {
     };
     this.documentReleases.push(documentRelease);
     localStorage.setItem('document-releases', JSON.stringify(this.documentReleases))
+    this.documentReleases$.next(this.documentReleases);
   }
 
   findDocumentReleaseById(id): Array<Release> {
@@ -142,6 +144,10 @@ export class DocumentService {
 
   getDocumentLogs(): Observable<DocumentLog[]> {
     return this.documentLogs$.asObservable();
+  }
+
+  getDocumentReleases(): Observable<Release[]> {
+    return this.documentReleases$.asObservable();
   }
 
   /**
