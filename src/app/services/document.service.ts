@@ -17,6 +17,7 @@ export class DocumentService {
   protected documentLogs$ = new Subject<DocumentLog[]>();
   protected documentLogs: Array<DocumentLog> = [];
   protected documentReleases: Array<Release> = [];
+  protected documentReleases$ = new Subject<Release[]>();
 
   //this variable allow to handel what documents
   // we want to show in main components
@@ -125,6 +126,7 @@ export class DocumentService {
     };
     this.documentReleases.push(documentRelease);
     localStorage.setItem('document-releases', JSON.stringify(this.documentReleases))
+    this.documentReleases$.next(this.documentReleases);
   }
 
   findDocumentReleaseById(id): Array<Release> {
@@ -145,6 +147,10 @@ export class DocumentService {
 
   getDocumentLogs(): Observable<DocumentLog[]> {
     return this.documentLogs$.asObservable();
+  }
+
+  getDocumentReleases(): Observable<Release[]> {
+    return this.documentReleases$.asObservable();
   }
 
   /**
@@ -176,7 +182,9 @@ export class DocumentService {
    * @returns {boolean}
    */
   isMember(document: Document, user: User): boolean {
-    return document.users.findIndex((x) => x.username === user.username) != -1;
+    if (document.users && _.isArray(document.users))
+      return document.users.findIndex((x) => x.username === user.username) != -1;
+    return false;
   }
 
   /**
@@ -244,16 +252,9 @@ export class DocumentService {
     return this.getDocumentsByStatus(Status.Permanent);
   }
 
-  /**
-   * Any audit findings that are assigned to the Executive Housekeeper will show up here.
-   */
-  getMyAudits(user: User) {
-    return this.documents.filter((doc) => this.isMember(doc, user));
-  }
-
   // Any Non-Conformances raised by the Executive Housekeeper.
-  getMyNonComformanced() {
-
+  getMyNonComformances() {
+    return this.documents;
   }
 
   /**
@@ -282,26 +283,27 @@ export class DocumentService {
   }
 
   /**
-   *  Additional Regulations for my Department are requirements that are delegated by the Executive Housekeeper
-   *  to other members of his/her department.  This will allow for clear oversight of responsibilities.
+   *Additional Regulations for my Department are requirements that are delegated by the Executive Housekeeper
+   *  to other members of his/her department.
+   * This will allow for clear oversight of responsibilities.
    * @param user
    * @returns {Document[]}
    */
-  getMyAditionalRegulation(user: User): Document[] {
-    return this.documents.filter((doc) => this.isMember(doc, user) || this.isOwner(doc, user));
+  getRegulationForMyDepartment(user: User): Document[] {
+    return this.documents.filter((doc) => this.isMember(doc, user));
   }
 
-  /*
-   Company Policies and General Regulations for all Ships Company is a standard set of regulations
-   that all users will see regardless of sign-on rank.  These will cover items such as Anti-Trust Policy,
-   Language Policy, Prohibited Items onboard, dangerous sports ashore, etc...
+  /**
+   * Company Policies and General Regulations for all Ships Company is a standard set of regulations
+   * that all users will see regardless of sign-on rank.  These will cover items such as Anti-Trust Policy,
+   * Language Policy, Prohibited Items on board, dangerous sports ashore, etc...
    */
   getCompanyPolicies() {
-    // dudas
+    return this.documents;
   }
 
   getGeneralRegulation() {
-    // dudas
+    return this.documents;
   }
 
   /**

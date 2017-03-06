@@ -37,11 +37,11 @@
           </ul>
           <h5>Tasks</h5>
           <ul class="category-list" style="padding: 0">
-            <li><a href="#"> <i class="fa fa-circle text-navy"></i>My Task
+            <li><a href> <i class="fa fa-circle text-navy"></i>My Task
               <span  class="label label-info pull-right" *ngIf="task>0">{{task}}</span>
             </a></li>
 
-            <li><a href="#"> <i class="fa fa-circle text-danger"></i>My Audits
+            <li><a [routerLink]="['/home/audit']"> <i class="fa fa-circle text-danger"></i>My Audits
               <span  class="label label-info pull-right" *ngIf="audits>0">{{audits}}</span>
             </a></li>
 
@@ -51,11 +51,11 @@
               </a>
             </li>
 
-            <li><a href="#"> <i class="fa fa-circle text-info"></i>Non-Conformances</a></li>
-            <li><a href="#"> <i class="fa fa-circle text-warning"></i>Regulations for my Department</a></li>
-            <li><a href="#"> <i class="fa fa-circle text-warning"></i>Company policies</a></li>
-            <li><a href="#"> <i class="fa fa-circle text-warning"></i>General regulations</a></li>
-            <li><a href="#"> <i class="fa fa-circle text-info"></i>Others misc</a></li>
+            <li><a [routerLink]="['/home']" [queryParams]="{ documents: 'non-conformances'}"> <i class="fa fa-circle text-info"></i>Non-Conformances</a></li>
+            <li><a [routerLink]="['/home']" [queryParams]="{ documents: 'regulations-for-my-department'}"> <i class="fa fa-circle text-warning"></i>Regulations for my Department</a></li>
+            <li><a [routerLink]="['/home']" [queryParams]="{ documents: 'company-policies'}"> <i class="fa fa-circle text-warning"></i>Company policies</a></li>
+            <li><a [routerLink]="['/home']" [queryParams]="{ documents: 'general-regulations'}"> <i class="fa fa-circle text-warning"></i>General regulations</a></li>
+            <li><a [routerLink]="['/home']" [queryParams]="{ documents: 'others-misc'}"> <i class="fa fa-circle text-info"></i>Others misc</a></li>
           </ul>
 
           <h5 class="tag-title">Labels</h5>
@@ -63,9 +63,8 @@
 
             <li *ngFor="let key of tagsKeys">
               <a [routerLink]="['/home']" [queryParams]="{ tag: key}">
-                <i class="fa fa-tag">{{key}}
-                  <span class="badge">{{tags[key]['count']}}</span>
-                </i>
+                <i class="fa fa-tag"></i>
+                {{key}} <span class="badge">{{tags[key]['count']}}</span>
               </a>
             </li>
           </ul>
