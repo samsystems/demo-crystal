@@ -17,9 +17,11 @@
             {{document.name}}
           </h1>
         </div>
-        <div [froalaView]="document.content"></div>
+        <div [froalaView]="document.content" *ngIf="!showChange"></div>
+        <div diff [right]="document.content" [left]="previousDocument.content" *ngIf="showChange"></div>
         <hr>
       </div>
     </div>
   </div>
 </div>
+<div class="fab"><button class="btn btn-primary btn-circle btn-lg animation-rotate" type="button" (click)="showChanges()" tooltip="Show/Hide changes"><i class="fa fa-exchange"></i></button></div>
