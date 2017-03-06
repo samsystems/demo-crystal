@@ -14,24 +14,40 @@
           <h5>Folders</h5>
           <ul class="folder-list m-b-md" style="padding: 0">
             <li><a [routerLink]="['/']"> <i class="fa fa-inbox "></i> Inbox
-              <span class="label label-warning pull-right">16</span>
+              <span class="label label-warning pull-right">{{inbox}}</span>
             </a></li>
-            <li><a href="/starred"> <i class="fa fa-star-o"></i> Starred</a></li>
-            <li><a href="/draft"> <i class="fa fa-file-text-o"></i> Drafts <span
-              class="label label-danger pull-right">2</span></a></li>
-            <li><a href="mailbox.html"> <i class="fa fa-trash-o"></i> Pending Approval</a></li>
-            <li><a href="mailbox.html"> <i class="fa fa-trash-o"></i> Approved</a></li>
+
+            <li>
+              <a [routerLink]="['/home']" [queryParams]="{ status: 0}"> <i class="fa fa-file-text-o"></i> Drafts
+                <span class="label label-danger pull-right" *ngIf="draft>0">{{draft}}</span>
+              </a>
+            </li>
+
+            <li>
+              <a  [routerLink]="['/home']" [queryParams]="{ status: 1}"> <i class="fa fa-trash-o"></i> Pending Approval
+                <span class="label label-danger pull-right" *ngIf="pendingApproval>0">{{pendingApproval}}</span>
+              </a>
+            </li>
+
+            <li>
+              <a [routerLink]="['/home']" [queryParams]="{ status: 2}"> <i class="fa fa-trash-o"></i> Approved
+                <span class="label label-danger pull-right" *ngIf="approved>0">{{approved}}</span>
+              </a>
+            </li>
           </ul>
           <h5>Tasks</h5>
           <ul class="category-list" style="padding: 0">
             <li><a href="#"> <i class="fa fa-circle text-navy"></i>My Task
-              <span class="label label-info pull-right">1</span>
+              <span  class="label label-info pull-right" *ngIf="task>0">{{task}}</span>
             </a></li>
-            <li><a href="#"> <i class="fa fa-circle text-danger"></i>My Audits</a></li>
+
+            <li><a href="#"> <i class="fa fa-circle text-danger"></i>My Audits
+              <span  class="label label-info pull-right" *ngIf="audits>0">{{audits}}</span>
+            </a></li>
 
             <li>
-              <a href="#"> <i class="fa fa-circle text-primary"></i>My Primary Responsibilities
-                <span class="label label-info pull-right">{{primaryResponsibilities}}</span>
+              <a [routerLink]="['/home']" [queryParams]="{ status: 0}"> <i class="fa fa-circle text-primary"></i>My Primary Responsibilities
+                <span class="label label-info pull-right" *ngIf="primaryResponsibilities>0 ">{{primaryResponsibilities}}</span>
               </a>
             </li>
 
@@ -45,17 +61,13 @@
           <h5 class="tag-title">Labels</h5>
           <ul class="tag-list" style="padding: 0">
 
-            <li *ngFor=""><a href><i><span></span></i></a></li>
-
-            <li><a href=""><i class="fa fa-tag"></i> Bridge <span class="badge">42</span></a></li>
-            <li><a href=""><i class="fa fa-tag"></i> Company requirements <span class="badge">2</span></a></li>
-            <li><a href=""><i class="fa fa-tag"></i> Bridge <span class="badge">42</span></a></li>
-            <li><a href=""><i class="fa fa-tag"></i> Company requirements <span class="badge">2</span></a></li>
-            <li><a href=""><i class="fa fa-tag"></i> Company requirements <span class="badge">2</span></a></li>
-            <li><a href=""><i class="fa fa-tag"></i> Bridge <span class="badge">42</span></a></li>
-            <li><a href=""><i class="fa fa-tag"></i> Company requirements <span class="badge">2</span></a></li>
-            <li><a href=""><i class="fa fa-tag"></i> Bridge <span class="badge">42</span></a></li>
-            <li><a href=""><i class="fa fa-tag"></i> Company requirements <span class="badge">2</span></a></li>
+            <li *ngFor="let key of tagsKeys">
+              <a [routerLink]="['/home']" [queryParams]="{ tag: key}">
+                <i class="fa fa-tag">{{key}}
+                  <span class="badge">{{tags[key]['count']}}</span>
+                </i>
+              </a>
+            </li>
           </ul>
           <div class="clearfix"></div>
         </div>

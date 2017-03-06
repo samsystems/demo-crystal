@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Audit} from '../../../models/audit';
-import {AuditService} from '../../services/audit.service';
+import {AuditService} from '../../../services/audit.service';
 import {Location} from '@angular/common';
 
 

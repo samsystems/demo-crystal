@@ -13,9 +13,6 @@ const routes: Routes = [
     }, {
       path: 'document',
       loadChildren: '../document-manager/document-manager.module#DocumentManagerModule'
-    }, {
-      path: 'audit',
-      loadChildren: '../audit/audit.module#AuditModule'
     }]
   }
 ];

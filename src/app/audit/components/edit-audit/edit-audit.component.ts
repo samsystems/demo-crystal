@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Audit, StatusLabels} from '../../../models/audit';
 import {Router, ActivatedRoute, Params} from '@angular/router';
-import {AuditService} from '../../services/audit.service';
+import {AuditService} from '../../../services/audit.service';
 
 @Component({
   selector: 'app-edit-audit',

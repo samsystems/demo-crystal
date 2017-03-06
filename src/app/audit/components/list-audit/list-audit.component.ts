@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {AuditService} from '../../services/audit.service';
 import {Audit, StatusLabels} from '../../../models/audit';
 import {AuthService} from '../../../core/services/auth.service';
+import {AuditService} from '../../../services/audit.service';
 
 @Component({
   selector: 'app-list-audit',

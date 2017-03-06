@@ -7,8 +7,7 @@ import {ListAuditComponent} from './components/list-audit/list-audit.component';
 import {FormsModule} from '@angular/forms';
 import {DatepickerModule, TooltipModule} from 'ng2-bootstrap';
 import {SelectModule} from 'ng2-select';
-import {AuditService} from './services/audit.service';
-import { EditAuditComponent } from './components/edit-audit/edit-audit.component';
+import {EditAuditComponent} from './components/edit-audit/edit-audit.component';
 
 @NgModule({
   imports: [
@@ -24,9 +23,6 @@ import { EditAuditComponent } from './components/edit-audit/edit-audit.component
     CreateAuditComponent,
     ListAuditComponent,
     EditAuditComponent
-  ],
-  providers:[
-    AuditService
   ]
 })
 export class AuditModule {

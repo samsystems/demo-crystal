@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Audit} from '../../models/audit';
+import {Audit} from '../models/audit';
 import {Subject, Observable} from 'rxjs';
 import * as _ from 'lodash';
 import {audit} from 'rxjs/operator/audit';

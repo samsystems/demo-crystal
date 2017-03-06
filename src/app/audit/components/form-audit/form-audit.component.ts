@@ -1,5 +1,4 @@
 import {Component, OnInit, EventEmitter, Output, Input} from '@angular/core';
-import {Router} from '@angular/router';
 import {NgForm} from '@angular/forms';
 import {AuthService} from '../../../core/services/auth.service';
 import * as _ from 'lodash';
