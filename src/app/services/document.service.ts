@@ -3,34 +3,30 @@ import * as uuid from 'uuid';
 import {Document, Status} from '../models/document';
 import {DocumentLog} from '../models/document-log';
 import {User} from "../models/user";
-import {Observable, BehaviorSubject} from "rxjs";
+import {AuthService} from '../core/services/auth.service';
+import {Observable, Subject} from "rxjs";
+import {Release} from '../models/release';
 
 @Injectable()
 export class DocumentService {
 
-  protected documents: Document[];
-  protected _documents: BehaviorSubject<Document[]>;
-  protected documentLogs: DocumentLog[] = [];
+  protected documents: Document[] = [];
+  protected documents$ = new Subject<Document[]>();
+  protected documentLogs: Array<DocumentLog> = [];
+  protected documentReleases: Array<Release> = [];
 
   //this variable allow to handel what documents
   // we want to show in main components
   protected currentDocumentStatus: number;
 
-  constructor() {
+  constructor(private auth: AuthService) {
     this.onInit();
   }
 
   onInit() {
-
-    // -1 means that inmain component we will show all components, otherwise
-    // we will show documents with status=currentDocumentStatus
-    this.currentDocumentStatus = -1;
-
-
     let documents = JSON.parse(localStorage.getItem('documents'));
     if (documents) {
       this.documents = documents;
-      this._documents = new BehaviorSubject(this.documents);
     }
     let tags = JSON.parse(localStorage.getItem('tags'));
     if (!tags) {
@@ -44,17 +40,52 @@ export class DocumentService {
     if(documentLogs) {
       this.documentLogs = documentLogs;
     }
+    let documentReleases = JSON.parse(localStorage.getItem('document-releases'));
+    if(documentReleases) {
+      this.documentReleases = documentReleases;
+    }
+  }
+
+  private syncStore() {
+    localStorage.setItem('documents', JSON.stringify(this.documents));
+    this.documents$.next(this.documents);
   }
 
   createDoc(doc: Document) {
     this.documents.push(doc);
-    localStorage.setItem('documents', JSON.stringify(this.documents));
-    this._documents.next(this.documents);
+    this.syncStore();
+  }
+
+  changeDocumentStatus(status: string, documentID: string) {
+    let document= this.findById(documentID);
+    let pos = this.documents.indexOf(document);
+    document.status = status;
+    if(pos != -1) {
+      this.documents.splice(pos, 1);
+    }
+    const documentLog: DocumentLog = {
+      id: uuid.v4(),
+      user: this.auth.getUser(),
+      document: document,
+      changes: 'Document change to ' + status,
+      date: Date.now()
+    };
+    this.createDocumentLog(documentLog);
+    this.createDoc(document);
+  }
+
+  removeDocument(documentID: string) {
+    let document = this.findById(documentID);
+    let pos = this.documents.indexOf(document);
+    if(pos != -1) {
+      this.documents.splice(pos, 1);
+    }
+    this.syncStore();
+    return this.documents;
   }
 
   createDocumentLog(documentLog: DocumentLog) {
     this.documentLogs.push(documentLog);
-    console.log(this.documentLogs);
     localStorage.setItem('document-logs', JSON.stringify(this.documentLogs))
   }
 
@@ -63,11 +94,27 @@ export class DocumentService {
   }
 
   findDocumentLogById(id): Array<DocumentLog> {
-    return this.documentLogs.filter((doc) => doc.document.id = id);
+    return this.documentLogs.filter((doc) => doc.document.id === id);
   }
 
   findAll(): Array<Document> {
     return this.documents;
+  }
+
+  createDocumentRelease(documentID: string) {
+    let document = this.findById(documentID);
+    const documentRelease: Release = {
+      id: uuid.v4(),
+      document: document,
+      version: document.version,
+      date: Date.now()
+    };
+    this.documentReleases.push(documentRelease);
+    localStorage.setItem('document-releases', JSON.stringify(this.documentReleases))
+  }
+
+  findDocumentReleaseById(id): Array<Release> {
+    return this.documentReleases.filter((doc) => doc.document.id === id);
   }
 
   /**
@@ -75,7 +122,7 @@ export class DocumentService {
    * @returns {Observable<T>}
    */
   getDocuments():Observable<Document[]>{
-    return this._documents.asObservable();
+    return this.documents$.asObservable();
   }
 
   /**
@@ -123,7 +170,7 @@ export class DocumentService {
    * @param status
    * @returns {Document[]}
    */
-  getDocumentsByStatus(status: Status): Document[] {
+  getDocumentsByStatus(status: string): Document[] {
     if(status ===-1)
       return this.documents;
     return this.documents.filter((doc) => doc.status === status);

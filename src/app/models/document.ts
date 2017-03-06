@@ -5,6 +5,7 @@ import {Rank} from './rank';
 export enum Status{
   "Draft",
   "Pending_Approval",
+  "Pending",
   "Approved",
   "Published",
   "Permanent"
@@ -13,7 +14,7 @@ export enum Status{
 export interface Document {
   id: string;
   name: string;
-  status: Status;
+  status: string;
   version: string;
   isFile: boolean;
   content?: string;

@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { DocumentDetailFlowComponent } from './document-detail-flow.component';
+import {DocumentDetailFlowComponent} from './document-detail-flow.component';
 
 describe('DocumentDetailFlowComponent', () => {
   let component: DocumentDetailFlowComponent;
@@ -8,9 +8,9 @@ describe('DocumentDetailFlowComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DocumentDetailFlowComponent ]
+      declarations: [DocumentDetailFlowComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
