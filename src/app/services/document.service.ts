@@ -309,13 +309,16 @@ export class DocumentService {
   /**
    * Return an array of tags
    */
-  getTags(): any {
+  getTags(documents?: Array<Document>): any {
     let allTags = [];
     let result = {};
 
     //get all tags
-    for (let i = 0; i < this.documents.length; i++) {
-      const tags = _.get(this.documents[i], 'tags', []);
+    if(!documents) {
+      documents = this.documents;
+    }
+    for (let i = 0; i < documents.length; i++) {
+      const tags = _.get(documents[i], 'tags', []);
       if (_.isArray(tags))
         allTags.push(...tags);
     }
@@ -334,7 +337,10 @@ export class DocumentService {
     return result;
   }
 
-  getDocumentsByTag(tag: string): Document[] {
-    return this.documents.filter((doc) => this.hasTag(doc, tag));
+  getDocumentsByTag(tag: string, documents?: Array<Document>): Document[] {
+    if(!documents) {
+      documents = this.documents;
+    }
+    return documents.filter((doc) => this.hasTag(doc, tag));
   }
 }

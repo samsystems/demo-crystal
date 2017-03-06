@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {DocumentService} from '../../../services/document.service';
-import {AuthService} from '../../../core/services/auth.service';
 import {Document, Status} from '../../../models/document';
 import * as _ from 'lodash';
 import {DocumentLog} from '../../../models/document-log';
 import * as moment from 'moment';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-view-doc',
@@ -14,8 +14,10 @@ import * as moment from 'moment';
 export class ViewDocComponent implements OnInit {
 
   documents: Document[];
+  private tags: any;
+  private tagsKey: any;
 
-  constructor(private documentService: DocumentService, private auth: AuthService) {
+  constructor(private documentService: DocumentService, private route: ActivatedRoute) {
   }
 
   ngOnInit() {
@@ -44,7 +46,15 @@ export class ViewDocComponent implements OnInit {
       this.documents.push(_.extend(v,{
         id: v['logRef']
       }));
-    })
+    });
+
+    this.tags = this.documentService.getTags(this.documents);
+    this.tagsKey = Object.keys(this.tags);
+    this.route.queryParams.subscribe(params => {
+      if(params['tag']) {
+        this.documents = this.documentService.getDocumentsByTag(params['tag'], this.documents);
+      }
+    });
   }
 
 }
