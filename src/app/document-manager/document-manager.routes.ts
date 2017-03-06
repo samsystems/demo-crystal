@@ -4,6 +4,7 @@ import {BriefcaseComponent} from './components/briefcase/briefcase.component';
 import {CreateDocComponent} from './components/create-doc/create-doc.component';
 import {DocumentDetailComponent} from './components/document-detail/document-detail.component';
 import {ViewDocComponent} from './components/view-doc/view-doc.component';
+import {ReadDocComponent} from './components/read-doc/read-doc.component';
 
 const routes: Routes = [
   {
@@ -18,6 +19,9 @@ const routes: Routes = [
   }, {
     path: 'view',
     component: ViewDocComponent
+  }, {
+    path: ':id',
+    component: ReadDocComponent
   }
 ];
 

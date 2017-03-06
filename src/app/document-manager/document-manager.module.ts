@@ -19,6 +19,7 @@ import {DocumentDetailComponent} from './components/document-detail/document-det
 import {DocumentDetailFlowComponent} from './components/document-detail-flow/document-detail-flow.component';
 import {DocumentDetailReleaseComponent} from './components/document-detail-release/document-detail-release.component';
 import { ViewDocComponent } from './components/view-doc/view-doc.component';
+import { ReadDocComponent } from './components/read-doc/read-doc.component';
 
 @NgModule({
   imports: [
@@ -40,7 +41,8 @@ import { ViewDocComponent } from './components/view-doc/view-doc.component';
     DocumentDetailComponent,
     DocumentDetailFlowComponent,
     DocumentDetailReleaseComponent,
-    ViewDocComponent
+    ViewDocComponent,
+    ReadDocComponent
   ],
   providers: []
 })

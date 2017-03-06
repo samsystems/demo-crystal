@@ -16,7 +16,9 @@ export class ViewDocComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.documents = this.documentService.findAll();
+    const publishedDocs = this.documentService.getPublishedDocuments();
+    const permanentDocs = this.documentService.getPermanentDocuments();
+    this.documents = publishedDocs.concat(permanentDocs);
   }
 
 }

@@ -7,6 +7,7 @@ import {AuthService} from '../core/services/auth.service';
 import {Observable, Subject} from "rxjs";
 import {Release} from '../models/release';
 import * as _ from 'lodash';
+import * as moment from 'moment';
 
 @Injectable()
 export class DocumentService {
@@ -61,6 +62,7 @@ export class DocumentService {
   updateDoc(doc: Document, changes: DocumentLog) {
     let p = _.findIndex(this.documents, {'id': doc.id});
     if (p >= 0) {
+      doc.updated = moment().format();
       this.documents[p] = doc;
     }
     this.createDocumentLog(changes);
