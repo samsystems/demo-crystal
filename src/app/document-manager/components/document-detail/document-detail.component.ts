@@ -6,6 +6,7 @@ import {Release} from '../../../models/release';
 import {DocumentService} from '../../../services/document.service';
 import * as uuid from 'uuid';
 import {AuthService} from '../../../core/services/auth.service';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-document-detail',
@@ -35,7 +36,7 @@ export class DocumentDetailComponent implements OnInit {
       this.syncData()
     });
     this.documentService.getDocumentLogs().subscribe(() => {
-      this.states = this.documentService.findDocumentLogById(this.id);
+      this.states = this.documentService.findDocumentLogByDocId(this.id);
       this.states.reverse();
     });
     this.documentService.getDocumentReleases().subscribe(() => {
@@ -48,7 +49,7 @@ export class DocumentDetailComponent implements OnInit {
     this.changes = null;
     this.document = this.documentService.findById(this.id);
     this.documentContent = this.document.content;
-    this.states = this.documentService.findDocumentLogById(this.id);
+    this.states = this.documentService.findDocumentLogByDocId(this.id);
     this.releases = this.documentService.findDocumentReleaseById(this.id);
     this.changeBtnText();
     this.states.reverse();
@@ -101,7 +102,7 @@ export class DocumentDetailComponent implements OnInit {
     const documentLog: DocumentLog = {
       id: uuid.v4(),
       user: this.auth.getUser(),
-      document: this.document,
+      document: _.cloneDeep(this.document),
       changes: this.changes,
       date: Date.now()
     };
@@ -110,15 +111,16 @@ export class DocumentDetailComponent implements OnInit {
   }
 
   newVersion() {
+
+    this.document.status = Status[Status.Draft];
+    this.document.version = this.version;
     const documentLog: DocumentLog = {
       id: uuid.v4(),
       user: this.auth.getUser(),
-      document: this.document,
+      document: _.cloneDeep(this.document),
       changes: 'New Version of the document',
       date: Date.now()
     };
-    this.document.status = Status[Status.Draft];
-    this.document.version = this.version;
     this.documentService.updateDoc(this.document, documentLog);
     this.version = null;
   }

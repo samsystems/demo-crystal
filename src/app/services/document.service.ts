@@ -64,7 +64,7 @@ export class DocumentService {
     let p = _.findIndex(this.documents, {'id': doc.id});
     if (p >= 0) {
       doc.updated = moment().format();
-      this.documents[p] = doc;
+      this.documents[p] = _.cloneDeep(doc);
     }
     this.createDocumentLog(changes);
     this.syncStore();
@@ -72,12 +72,8 @@ export class DocumentService {
   }
 
   changeDocumentStatus(status: string, documentID: string) {
-    let document = this.findById(documentID);
-    let pos = this.documents.indexOf(document);
+    let document = _.cloneDeep(this.findById(documentID));
     document.status = status;
-    if (pos != -1) {
-      this.documents.splice(pos, 1);
-    }
     const documentLog: DocumentLog = {
       id: uuid.v4(),
       user: this.auth.getUser(),
@@ -85,13 +81,12 @@ export class DocumentService {
       changes: 'Document change to ' + status,
       date: Date.now()
     };
-    this.createDocumentLog(documentLog);
-    this.createDoc(document);
+    this.updateDoc(document,documentLog);
   }
 
   removeDocument(documentID: string) {
     let document = this.findById(documentID);
-    let pos = this.documents.indexOf(document);
+    let pos = _.findIndex(this.documents, {'id': documentID});
     if (pos != -1) {
       this.documents.splice(pos, 1);
     }
@@ -109,8 +104,12 @@ export class DocumentService {
     return this.documents.find((doc) => doc.id === id);
   }
 
-  findDocumentLogById(id): Array<DocumentLog> {
+  findDocumentLogByDocId(id): Array<DocumentLog> {
     return this.documentLogs.filter((doc) => doc.document.id === id);
+  }
+
+  getDocumentLogById(id: string): DocumentLog {
+    return _.find(this.documentLogs, {'id': id});
   }
 
   findAll(): Array<Document> {
@@ -132,6 +131,10 @@ export class DocumentService {
 
   findDocumentReleaseById(id): Array<Release> {
     return this.documentReleases.filter((doc) => doc.document.id === id);
+  }
+
+  findDocumentLogs(): DocumentLog[] {
+    return this.documentLogs;
   }
 
   /**
@@ -205,7 +208,7 @@ export class DocumentService {
   getDocumentsByStatus(status: Status): Document[] {
     if (status === -1)
       return this.documents;
-    return this.documents.filter((doc) => doc.status === Status[status]);
+    return _.filter(this.documents, {'status': Status[status]});
   }
 
   /**
