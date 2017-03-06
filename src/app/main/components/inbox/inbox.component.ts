@@ -1,6 +1,7 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {DocumentService} from "../../../services/document.service";
+import {AuthService} from "../../../core/services/auth.service";
 
 @Component({
   selector: 'app-inbox',
@@ -13,7 +14,7 @@ export class InboxComponent implements OnInit , OnDestroy{
   subQueryParams:any;
   tag: string;
 
-  constructor(private documentService: DocumentService, private route: ActivatedRoute) {
+  constructor(private documentService: DocumentService, private route: ActivatedRoute, private auth: AuthService) {
   }
 
   ngOnInit() {
@@ -22,9 +23,12 @@ export class InboxComponent implements OnInit , OnDestroy{
 
     this.subQueryParams = this.route.queryParams.subscribe(params => {
       this.tag = null;
+      this.documents = [];
 
       if (params['tag']) {
         this.getDocumentsByTag(params['tag']);
+      } else if(params['documents']) {
+          this.getDocumentsByAction(params['documents']);
       } else {
         // Defaults to -1 if no query param provided.
         let status = params['status'] || -1;
@@ -58,6 +62,14 @@ export class InboxComponent implements OnInit , OnDestroy{
     this.tag = tag;
     this.title = 'Documents with tag';
     this.documents = this.documentService.getDocumentsByTag(tag)
+  }
+
+  getDocumentsByAction(action:string){
+    switch (action){
+      case 'primary-responsibilities':
+        this.documents = this.documentService.getMyPrimaryResponsabilities(this.auth.getUser());
+        break;
+    }
   }
 
   ngOnDestroy() {
