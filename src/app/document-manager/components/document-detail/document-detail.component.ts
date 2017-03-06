@@ -19,6 +19,7 @@ export class DocumentDetailComponent implements OnInit {
   changes: string;
   btnText: string = '';
   id: string;
+  version: string;
 
   constructor(private documentService: DocumentService,
               private route: ActivatedRoute,
@@ -40,6 +41,8 @@ export class DocumentDetailComponent implements OnInit {
   }
 
   syncData() {
+    this.version = null;
+    this.changes = null;
     this.document = this.documentService.findById(this.id);
     this.documentContent = this.document.content;
     this.states = this.documentService.findDocumentLogById(this.id);
@@ -101,5 +104,19 @@ export class DocumentDetailComponent implements OnInit {
     };
     this.documentService.updateDoc(this.document, documentLog);
     this.changes = null;
+  }
+
+  newVersion() {
+    const documentLog: DocumentLog = {
+      id: uuid.v4(),
+      user: this.auth.getUser(),
+      document: this.document,
+      changes: 'New Version of the document',
+      date: Date.now()
+    };
+    this.document.status = Status[Status.Draft];
+    this.document.version = this.version;
+    this.documentService.updateDoc(this.document, documentLog);
+    this.version = null;
   }
 }

@@ -20,7 +20,7 @@ const routes: Routes = [
     path: 'view',
     component: ViewDocComponent
   }, {
-    path: ':id',
+    path: 'view/:id',
     component: ReadDocComponent
   }
 ];
