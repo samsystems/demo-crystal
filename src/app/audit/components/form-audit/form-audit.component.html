@@ -2,10 +2,10 @@
   <div class="mail-body">
     <form id="auditForm" #auditForm="ngForm" novalidate (ngSubmit)="submit(auditForm)">
       <div class="row no-margins">
-        <div class="col-md-8 form-group">
+        <input-container class="col-md-8">
           <label>Title</label>
-          <input type="text" placeholder="Audit title" class="form-control" name="title" [(ngModel)]="audit.title" required>
-        </div>
+          <input type="text" bsInput placeholder="Audit title" class="form-control" name="title" [(ngModel)]="audit.title" required>
+        </input-container>
         <div class="col-md-4 form-group">
           <label>Audit type</label>
           <select class="form-control" name="type" [(ngModel)]="audit.type" required>
