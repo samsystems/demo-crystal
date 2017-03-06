@@ -1,0 +1,28 @@
+.fab {
+  bottom: 2em;
+  right: 2em;
+  position: fixed;
+}
+ins{
+  color: black;
+  background: #bbffbb;
+}
+
+del{
+  color: black;
+  background: #ffbbbb;
+}
+
+@-webkit-keyframes rotate {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+.animation-rotate:hover {
+  -webkit-animation-name: rotate;
+  -webkit-animation-duration: 2s;
+  -webkit-animation-iteration-count: infinite;
+  -moz-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-transition-timing-function: ease;
+}

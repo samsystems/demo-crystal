@@ -4,7 +4,7 @@ import {DocumentManagerRoutesModule} from './document-manager.routes';
 import {
   TabsModule,
   ModalModule,
-  ButtonsModule
+  ButtonsModule, TooltipModule
 } from 'ng2-bootstrap';
 import {FileUploadModule} from 'ng2-file-upload';
 import {SelectModule} from 'ng2-select';
@@ -20,6 +20,7 @@ import {DocumentDetailFlowComponent} from './components/document-detail-flow/doc
 import {DocumentDetailReleaseComponent} from './components/document-detail-release/document-detail-release.component';
 import { ViewDocComponent } from './components/view-doc/view-doc.component';
 import { ReadDocComponent } from './components/read-doc/read-doc.component';
+import { DiffMatchPatchModule, DiffDirective } from 'ng-diff-match-patch';
 
 @NgModule({
   imports: [
@@ -33,7 +34,9 @@ import { ReadDocComponent } from './components/read-doc/read-doc.component';
     SelectModule,
     FroalaEditorModule,
     FroalaViewModule,
-    SharedModule
+    SharedModule,
+    DiffMatchPatchModule,
+    TooltipModule.forRoot(),
   ],
   declarations: [
     BriefcaseComponent,

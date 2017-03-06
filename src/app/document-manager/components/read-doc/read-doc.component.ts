@@ -12,6 +12,8 @@ import {DocumentLog} from '../../../models/document-log';
 })
 export class ReadDocComponent implements OnInit {
   document: Document;
+  previousDocument: Document;
+  showChange: boolean = false;
 
   constructor(private documentService: DocumentService,
               private route: ActivatedRoute,
@@ -31,6 +33,7 @@ export class ReadDocComponent implements OnInit {
       this.document = log ? log.document : null;
     } else if (document.status == Status[Status.Published] || document.status == Status[Status.Permanent]) {
       this.document = document;
+      this.previousDocument = this.documentService.getPreviousVersion(this.document);
     } else {
       this.goBacK();
     }
@@ -38,5 +41,14 @@ export class ReadDocComponent implements OnInit {
 
   goBacK() {
     this.location.back();
+  }
+
+  showChanges() {
+    if(!this.showChange) {
+      this.showChange = true;
+    }
+    else {
+      this.showChange = false;
+    }
   }
 }
