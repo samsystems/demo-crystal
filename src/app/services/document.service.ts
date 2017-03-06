@@ -173,7 +173,9 @@ export class DocumentService {
    * @returns {boolean}
    */
   isMember(document: Document, user: User): boolean {
-    return document.users.findIndex((x) => x.username === user.username) != -1;
+    if (document.users && _.isArray(document.users))
+      return document.users.findIndex((x) => x.username === user.username) != -1;
+    return false;
   }
 
   /**
@@ -276,6 +278,17 @@ export class DocumentService {
      * This will allow for the rank specific regulations to show on the users dashboard.
      */
     return this.documents.filter((doc) => this.isPrimaryResponsability(doc, user));
+  }
+
+  /**
+   *Additional Regulations for my Department are requirements that are delegated by the Executive Housekeeper
+   *  to other members of his/her department.
+   * This will allow for clear oversight of responsibilities.
+   * @param user
+   * @returns {Document[]}
+   */
+  getRegulationForMyDepartment(user: User): Document[] {
+    return this.documents.filter((doc) => this.isMember(doc, user));
   }
 
   /**
