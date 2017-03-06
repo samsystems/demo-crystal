@@ -8,7 +8,7 @@ import {Document} from '../../../../models/document';
 })
 export class NotificationListComponent implements OnInit {
 
-  @Input('items') documents: Document[];
+  @Input('documents') documents: Document[];
   constructor() { }
 
   ngOnInit() {
