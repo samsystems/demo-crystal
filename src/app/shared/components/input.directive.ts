@@ -2,7 +2,7 @@ import {Directive, Renderer, ElementRef, Optional} from '@angular/core';
 import {NgControl} from '@angular/forms';
 
 @Directive({
-  selector: `input[bsInput], textarea[bsInput], input[matInput], textarea[bsInput]`,
+  selector: `input[bsInput], textarea[bsInput], select[bsInput]`,
   host: {
     '[class.form-control]': 'true'
   }

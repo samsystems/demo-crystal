@@ -3,48 +3,56 @@
     <form id="auditForm" #auditForm="ngForm" novalidate (ngSubmit)="submit(auditForm)">
       <div class="row no-margins">
         <input-container class="col-md-8">
-          <label>Title</label>
-          <input type="text" bsInput placeholder="Audit title" class="form-control" name="title" [(ngModel)]="audit.title" required>
+          <label>Title *</label>
+          <input type="text" bsInput placeholder="Audit title" class="form-control" name="title"
+                 [(ngModel)]="audit.title" required>
         </input-container>
-        <div class="col-md-4 form-group">
-          <label>Audit type</label>
-          <select class="form-control" name="type" [(ngModel)]="audit.type" required>
+        <input-container class="col-md-4">
+          <label>Audit type *</label>
+          <select bsInput class="form-control" name="type" [(ngModel)]="audit.type" required>
             <option *ngFor="let type of auditTypes" [value]="type">{{type}}</option>
           </select>
-        </div>
+        </input-container>
       </div>
       <div class="row no-margins">
-        <div class="col-md-3 form-group">
-          <label>Start date</label>
-          <input type="date" placeholder="Start date" class="form-control" name="startDate" [(ngModel)]="audit.startDate" required>
-        </div>
-        <div class="col-md-3 form-group">
-          <label>End date</label>
-          <input type="date" placeholder="End date" class="form-control" name="endDate" [(ngModel)]="audit.endDate" required>
-        </div>
-        <div class="col-md-3 form-group">
-          <label>Auditers</label>
+        <input-container class="col-md-3">
+          <label>Start date *</label>
+          <input type="date" bsInput placeholder="Start date" class="form-control" name="startDate"
+                 [(ngModel)]="audit.startDate" required>
+        </input-container>
+        <input-container class="col-md-3">
+          <label>End date *</label>
+          <input type="date" bsInput placeholder="End date" class="form-control" name="endDate"
+                 [(ngModel)]="audit.endDate" required>
+        </input-container>
+        <input-container class="col-md-3 form-group">
+          <label>Auditers *</label>
           <ng-select [multiple]="true" (data)="refreshAuditers($event)" [active]="audit.auditers"
                      [items]="usersAuditers"></ng-select>
-        </div>
-        <div class="col-md-3 form-group">
-          <label>Locations</label>
-          <select class="form-control" name="location" [(ngModel)]="audit.location">
+        </input-container>
+        <input-container class="col-md-3">
+          <label>Locations *</label>
+          <select class="form-control" bsInput name="location" [(ngModel)]="audit.location">
             <option *ngFor="let ship of locations" [value]="ship">{{ship}}</option>
           </select>
-        </div>
+        </input-container>
       </div>
       <div class="row no-margins">
-        <div class="col-md-12 form-group">
-          <label>Summary</label>
-          <textarea name="summary" class="form-control" [(ngModel)]="audit.summary" style="width: 100%" rows="3"></textarea>
-        </div>
+        <input-container class="col-md-12">
+          <label>Summary *</label>
+          <textarea name="summary" bsInput class="form-control" [(ngModel)]="audit.summary" style="width: 100%"
+                    rows="3" required></textarea>
+        </input-container>
       </div>
     </form>
   </div>
 
   <div class="mail-body text-right tooltip-demo">
-    <button form="auditForm" type="submit" class="btn btn-sm btn-primary"><i class="fa fa-floppy-o"></i> Save</button>
-    <button form="auditForm" type="reset" (click)="cancel.emit()" class="btn btn-white btn-sm"><i class="fa fa-times"></i> Discard</button>
+    <button form="auditForm" [disabled]="auditForm.invalid" type="submit" class="btn btn-sm btn-primary"><i
+      class="fa fa-floppy-o"></i> Save
+    </button>
+    <button form="auditForm" type="reset" (click)="cancel.emit()" class="btn btn-white btn-sm"><i
+      class="fa fa-times"></i> Discard
+    </button>
   </div>
 </div>
