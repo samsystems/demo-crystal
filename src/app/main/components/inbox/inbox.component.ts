@@ -14,7 +14,7 @@ export class InboxComponent implements OnInit, OnDestroy {
   subQueryParams: any;
   documentSubscription: any;
   tag: string;
-  currentFilter: string;
+  currentFilter: Object;
 
   constructor(private documentService: DocumentService, private route: ActivatedRoute, private auth: AuthService) {
   }
@@ -24,9 +24,10 @@ export class InboxComponent implements OnInit, OnDestroy {
     this.title = 'Inbox';
 
     this.subQueryParams = this.route.queryParams.subscribe(params => {
-      this.currentFilter = params['tag'];
+      this.currentFilter = params;
       this.syncData();
     });
+
     this.documentSubscription = this.documentService.getDocuments().subscribe(() => {
       this.syncData();
     });
@@ -34,8 +35,10 @@ export class InboxComponent implements OnInit, OnDestroy {
 
   syncData() {
     this.tag = null;
-    if (this.currentFilter) {
-      this.getDocumentsByTag(this.currentFilter);
+    if (this.currentFilter['tag']) {
+      this.getDocumentsByTag(this.currentFilter['tag']);
+    } else if (this.currentFilter['documents']) {
+      this.getDocumentsByAction(this.currentFilter['documents']);
     } else {
       // Defaults to -1 if no query param provided.
       let status = this.currentFilter || -1;
@@ -70,8 +73,8 @@ export class InboxComponent implements OnInit, OnDestroy {
     this.documents = this.documentService.getDocumentsByTag(tag)
   }
 
-  getDocumentsByAction(action:string){
-    switch (action){
+  getDocumentsByAction(action: string) {
+    switch (action) {
       case 'primary-responsibilities':
         this.documents = this.documentService.getMyPrimaryResponsabilities(this.auth.getUser());
         break;
