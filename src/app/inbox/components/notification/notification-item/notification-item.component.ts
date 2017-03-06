@@ -9,8 +9,10 @@ import {Notification, NotificationState} from "../../../shared/models/notificati
 export class NotificationItemComponent implements OnInit {
   @Input('item') notification: Notification;
   @Output() selectItem = new EventEmitter<Notification>();
+  selected: boolean;
 
   constructor() {
+    this.selected = false;
   }
 
   ngOnInit() {
