@@ -16,7 +16,9 @@ export class InboxComponent implements OnInit, OnDestroy {
   tag: string;
   currentFilter: Object;
 
-  constructor(private documentService: DocumentService, private route: ActivatedRoute, private auth: AuthService) {
+  constructor(private documentService: DocumentService,
+              private route: ActivatedRoute,
+              private auth: AuthService) {
   }
 
   ngOnInit() {
@@ -76,7 +78,12 @@ export class InboxComponent implements OnInit, OnDestroy {
   getDocumentsByAction(action: string) {
     switch (action) {
       case 'primary-responsibilities':
+        this.title = 'My Primary Responsibilities';
         this.documents = this.documentService.getMyPrimaryResponsabilities(this.auth.getUser());
+        break;
+      case 'regulations-for-my-department':
+        this.title = 'Regulations for my Department';
+        this.documents = this.documentService.getRegulationForMyDepartment(this.auth.getUser());
         break;
     }
   }

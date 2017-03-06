@@ -2,6 +2,7 @@ import {Component, OnInit, OnDestroy} from '@angular/core';
 
 import {AuthService} from '../../../core/services/auth.service';
 import {DocumentService} from "../../../services/document.service";
+import {AuditService} from "../../../services/audit.service";
 
 @Component({
   selector: 'app-main',
@@ -26,7 +27,7 @@ export class MainComponent implements OnInit, OnDestroy {
   //Subscriptions
   documentSubscription: any;
 
-  constructor(private auth: AuthService, private documentService: DocumentService) {
+  constructor(private auth: AuthService, private documentService: DocumentService, private auditService: AuditService) {
     this.primaryResponsibilities = 0;
     this.inbox = 0;
     this.task = 0;
@@ -55,6 +56,9 @@ export class MainComponent implements OnInit, OnDestroy {
     this.draft = this.documentService.getDraftDocuments().length;
     this.pendingApproval = this.documentService.getPending_ApprovalDocuments().length;
     this.approved = this.documentService.getApprovedDocuments().length;
+
+    //audits
+    this.audits = this.auditService.getAudits().length;
   }
 
   ngOnDestroy() {
