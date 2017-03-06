@@ -63,9 +63,8 @@
 
             <li *ngFor="let key of tagsKeys">
               <a [routerLink]="['/home']" [queryParams]="{ tag: key}">
-                <i class="fa fa-tag">{{key}}
-                  <span class="badge">{{tags[key]['count']}}</span>
-                </i>
+                <i class="fa fa-tag"></i>
+                {{key}} <span class="badge">{{tags[key]['count']}}</span>
               </a>
             </li>
           </ul>

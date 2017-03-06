@@ -2,7 +2,7 @@
   <div class="icheckbox_square-green" [class.checked]="selected" (click)="checkItem()">
     <input type="checkbox" class="i-checks" style="position: absolute; opacity: 0;">
   </div>
-  <a data-toggle="tab" href aria-expanded="true">
+  <a [routerLink]="['/briefcase/detail',document.id]">
     <small class="pull-right text-muted"> {{document.date | date}}</small>
     <strong class="m-l-xs">{{document.name}}</strong>
     <div class="small m-t-xs m-l-lg">
@@ -12,10 +12,14 @@
         rerum veniam voluptas?
       </p>
 
-      <div>
-
-        <span class="tag label label-danger" *ngFor="let tag of document.tags">{{tag}}</span>
-      </div>
     </div>
   </a>
+
+  <div class="m-l-lg">
+    <span *ngFor="let tag of document.tags">
+      <a [routerLink]="['/briefcase']" [queryParams]="{ tag: tag}">
+        <span class="tag label label-danger">{{tag}}</span>
+      </a>
+    </span>
+  </div>
 </li>
