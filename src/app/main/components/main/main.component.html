@@ -6,11 +6,8 @@
           <div dropdown>
             <a class="btn btn-block btn-primary" dropdownToggle>New<span class="caret"></span></a>
             <ul dropdownMenu role="menu" aria-labelledby="btn-append-to-body" style="width: 100%">
-              <li role="menuitem"><a class="dropdown-item">Audit</a></li>
+              <li role="menuitem"><a class="dropdown-item" [routerLink]="['audit/create']">Audit</a></li>
               <li role="menuitem"><a class="dropdown-item" [routerLink]="['document/create']">Document</a></li>
-              <li role="menuitem"><a class="dropdown-item">Promotion</a></li>
-              <li class="divider dropdown-divider"></li>
-              <li role="menuitem"><a class="dropdown-item">Separated link</a></li>
             </ul>
           </div>
           <div class="space-25"></div>
@@ -19,12 +16,6 @@
             <li><a [routerLink]="['/']"> <i class="fa fa-inbox "></i> Inbox
               <span class="label label-warning pull-right">{{inbox}}</span>
             </a></li>
-
-
-            <li>
-              <a [routerLink]="['/']"> <i class="fa fa-star-o"></i> Starred
-              </a>
-            </li>
 
             <li>
               <a [routerLink]="['/home']" [queryParams]="{ status: 0}"> <i class="fa fa-file-text-o"></i> Drafts

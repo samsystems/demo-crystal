@@ -11,11 +11,14 @@
         <li routerLinkActive="active">
           <a routerLink="/briefcase"> Briefcase</a>
         </li>
+        <li routerLinkActive="active">
+          <a routerLink="/audit"> Audit</a>
+        </li>
       </ul>
       <div dropdown class="pull-right m-r-sm font-bold" style="padding: 5px">
         <a dropdownToggle>
           <img alt="image" class="img-circle" src="{{user?.avatar}}" height="40px">
-          <span class="text-muted text-xs">{{user?.rank.name}}.{{user?.firstName}} {{user?.lastName}} <b class="caret"></b></span>
+          <span class="text-muted text-xs">{{user?.rank.text}}.{{user?.firstName}} {{user?.lastName}} <b class="caret"></b></span>
         </a>
         <ul dropdownMenu role="profile-menu" aria-labelledby="profile-menu">
           <li>

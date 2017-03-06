@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {DocumentLog} from '../../../models/document-log';
-import {DocumentService} from "../../../services/document.service";
+import {DocumentService} from '../../../services/document.service';
 
 @Component({
   selector: 'app-document-detail',

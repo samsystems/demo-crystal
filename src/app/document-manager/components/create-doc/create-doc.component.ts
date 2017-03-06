@@ -12,10 +12,10 @@ import {
   Status
 } from '../../../models/document';
 import {AuthService} from '../../../core/services/auth.service';
-import {Router} from '@angular/router';
+import {Location} from '@angular/common';
 import * as uuid from 'uuid';
 import {DocumentLog} from '../../../models/document-log';
-import {DocumentService} from "../../../services/document.service";
+import {DocumentService} from '../../../services/document.service';
 
 @Component({
   selector: 'app-create-doc',
@@ -23,18 +23,18 @@ import {DocumentService} from "../../../services/document.service";
   styleUrls: ['./create-doc.component.css']
 })
 export class CreateDocComponent implements OnInit {
-  public uploader: FileUploader = new FileUploader({url: ''});
+  public uploader: FileUploader = new FileUploader({url: 'http://localhost:3000'});
 
   tags: Tag[];
   ranks: Rank[];
   primary: any[];
   secondary: any[];
   content: string = '<span>My Document\'s Title</span>';
-  initVersion: "1.0.0";
+  initVersion: string = '1.0.0';
 
   constructor(private docService: DocumentService,
               private auth: AuthService,
-              private router: Router) {
+              private location: Location) {
   }
 
   ngOnInit() {
@@ -51,7 +51,7 @@ export class CreateDocComponent implements OnInit {
   }
 
   cancel() {
-    this.router.navigateByUrl('');
+    this.location.back();
   }
 
   createDoc(form: NgForm) {
@@ -81,7 +81,7 @@ export class CreateDocComponent implements OnInit {
           date: Date.now()
         };
         this.docService.createDocumentLog(documentLog);
-        this.router.navigateByUrl('');
+        this.location.back();
       } catch ($e) {
       }
     }

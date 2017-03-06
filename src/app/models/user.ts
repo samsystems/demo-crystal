@@ -9,5 +9,9 @@ export interface User {
 
   avatar: string;
 
-  rank: Rank;
+  login: boolean;
+
+  isAuditor: boolean;
+
+  rank?: Rank;
 }

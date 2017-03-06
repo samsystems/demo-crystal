@@ -37,7 +37,7 @@ export class MainComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.documentService.getDocuments().subscribe((documents)=>{
+    this.documentService.getDocuments().subscribe((documents) => {
       this.inbox = documents.length;
       this.primaryResponsibilities = this.documentService.getMyPrimaryResponsabilities(this.auth.getUser()).length;
       this.tags = this.documentService.getTags();
