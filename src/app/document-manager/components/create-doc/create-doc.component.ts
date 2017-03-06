@@ -30,7 +30,7 @@ export class CreateDocComponent implements OnInit {
   primary: any[];
   secondary: any[];
   content: string = '<span>My Document\'s Title</span>';
-  initVersion: string = '1.0.0';
+  initVersion: string = "1.0.0";
 
   constructor(private docService: DocumentService,
               private auth: AuthService,
@@ -59,7 +59,7 @@ export class CreateDocComponent implements OnInit {
       const newDoc: Document = {
         id: uuid.v4(),
         name: form.value.regulationName as string,
-        status: Status.Draft,
+        status: Status[Status.Draft],
         version: this.initVersion,
         isFile: !!this.uploader.queue.length,
         content: this.content,

@@ -8,7 +8,8 @@ import {Component, OnInit, Input} from '@angular/core';
 export class DocumentDetailFlowComponent implements OnInit {
   @Input() states: Array<Object>;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }

@@ -8,11 +8,13 @@ import {AuthService} from "../../../core/services/auth.service";
   templateUrl: './inbox.component.html',
   styleUrls: ['./inbox.component.css']
 })
-export class InboxComponent implements OnInit , OnDestroy{
+export class InboxComponent implements OnInit, OnDestroy {
   title: string;
   documents: any;
-  subQueryParams:any;
+  subQueryParams: any;
+  documentSubscription: any;
   tag: string;
+  currentFilter: string;
 
   constructor(private documentService: DocumentService, private route: ActivatedRoute, private auth: AuthService) {
   }
@@ -22,25 +24,29 @@ export class InboxComponent implements OnInit , OnDestroy{
     this.title = 'Inbox';
 
     this.subQueryParams = this.route.queryParams.subscribe(params => {
-      this.tag = null;
-      this.documents = [];
-
-      if (params['tag']) {
-        this.getDocumentsByTag(params['tag']);
-      } else if(params['documents']) {
-          this.getDocumentsByAction(params['documents']);
-      } else {
-        // Defaults to -1 if no query param provided.
-        let status = params['status'] || -1;
-        this.getDocumentByStatus(+status);
-      }
+      this.currentFilter = params['tag'];
+      this.syncData();
+    });
+    this.documentSubscription = this.documentService.getDocuments().subscribe(() => {
+      this.syncData();
     });
   }
 
-  getDocumentByStatus(status: number):void{
+  syncData() {
+    this.tag = null;
+    if (this.currentFilter) {
+      this.getDocumentsByTag(this.currentFilter);
+    } else {
+      // Defaults to -1 if no query param provided.
+      let status = this.currentFilter || -1;
+      this.getDocumentByStatus(+status);
+    }
+  }
+
+  getDocumentByStatus(status: number): void {
 
     //Setting title
-    switch(status){
+    switch (status) {
       case -1:
         this.title = 'Inbox';
         break;
@@ -74,6 +80,7 @@ export class InboxComponent implements OnInit , OnDestroy{
 
   ngOnDestroy() {
     this.subQueryParams.unsubscribe();
+    this.documentSubscription.unsubscribe();
   }
 
 }
