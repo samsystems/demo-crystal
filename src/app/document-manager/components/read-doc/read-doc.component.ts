@@ -2,7 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {DocumentService} from '../../../services/document.service';
 import {ActivatedRoute} from '@angular/router';
 import {Location} from '@angular/common';
-import {Document} from '../../../models/document';
+import {Document, Status} from '../../../models/document';
+import {DocumentLog} from '../../../models/document-log';
 
 @Component({
   selector: 'app-read-doc',
@@ -24,7 +25,15 @@ export class ReadDocComponent implements OnInit {
   }
 
   syncData(id) {
-    this.document = this.documentService.findById(id);
+    const document = this.documentService.findById(id);
+    if (!document) {
+      const log: DocumentLog = this.documentService.getDocumentLogById(id);
+      this.document = log ? log.document : null;
+    } else if (document.status == Status[Status.Published] || document.status == Status[Status.Permanent]) {
+      this.document = document;
+    } else {
+      this.goBacK();
+    }
   }
 
   goBacK() {
