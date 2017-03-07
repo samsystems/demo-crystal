@@ -225,7 +225,7 @@ export class DocumentService {
    * @returns {Document[]}
    */
   getPending_ApprovalDocuments(): Document[] {
-    return this.getDocumentsByStatus(Status.Pending_Approval);
+    return this.getDocumentsByStatus(Status.Pending);
   }
 
   /**
