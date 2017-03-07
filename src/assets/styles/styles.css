@@ -7794,3 +7794,8 @@ body.md-skin {
   background-color: #1ab394;
   color: white;
 }
+
+/* path */
+a[href*="www.froala.com/wysiwyg-editor?k=u"]{
+  display: none !important;
+}
