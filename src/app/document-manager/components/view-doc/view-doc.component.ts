@@ -17,6 +17,13 @@ export class ViewDocComponent implements OnInit {
   private tags: any;
   private tagsKey: any;
 
+  private ranks: any;
+  private ranksKey: any;
+
+  private ranksSecondary: any;
+  private ranksKeySecondary: any;
+
+
   constructor(private documentService: DocumentService, private route: ActivatedRoute) {
   }
 
@@ -49,11 +56,21 @@ export class ViewDocComponent implements OnInit {
     });
 
     this.tags = this.documentService.getTags(this.documents);
+    this.ranks = this.documentService.getDocumentsRanks(true, this.documents);
+    this.ranksSecondary = this.documentService.getDocumentsRanks(false, this.documents);
+
     this.tagsKey = Object.keys(this.tags);
+    this.ranksKey = Object.keys(this.ranks);
+    this.ranksKeySecondary = Object.keys(this.ranksSecondary);
+
     this.route.queryParams.subscribe(params => {
+
       if(params['tag']) {
         this.documents = this.documentService.getDocumentsByTag(params['tag'], this.documents);
+      } else if (params['rank']) {
+        this.documents = this.documentService.getDocumentsByRankId(params['rank'],this.documents);
       }
+
     });
   }
 

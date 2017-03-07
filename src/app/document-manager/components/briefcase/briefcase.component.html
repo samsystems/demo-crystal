@@ -2,18 +2,39 @@
   <div class="col-lg-3">
     <div class="ibox float-e-margins">
       <div class="ibox-content">
+
         <div class="file-manager">
           <button class="btn btn-primary btn-block" routerLink="/briefcase/create">New Document</button>
           <div class="hr-line-dashed"></div>
-          <h5 class="tag-title">Tags</h5>
+          <h5 class="tag-title">Primary Ranks</h5>
           <ul class="tag-list">
 
             <li *ngFor="let key of ranksKey">
               <a [routerLink]="['/briefcase']" [queryParams]="{ rank: key}">
-                <i class="fa fa-tag"></i> {{ranks[key].text}} <span class="badge">{{ranks[key].count}}</span>
+                {{ranks[key].text}} <span class="badge">{{ranks[key].count}}</span>
               </a>
             </li>
+          </ul>
+          <div class="clearfix"></div>
+        </div>
 
+        <div class="file-manager">
+          <h5 class="tag-title">Secondary Ranks</h5>
+          <ul class="tag-list">
+
+            <li *ngFor="let key of ranksKeySecondary">
+              <a [routerLink]="['/briefcase']" [queryParams]="{ rank: key}">
+                {{ranksSecondary[key].text}} <span class="badge">{{ranksSecondary[key].count}}</span>
+              </a>
+            </li>
+          </ul>
+          <div class="clearfix"></div>
+        </div>
+
+        <div class="file-manager">
+
+          <h5 class="tag-title">Tags</h5>
+          <ul class="tag-list">
             <li *ngFor="let key of tagsKey">
               <a [routerLink]="['/briefcase']" [queryParams]="{ tag: key}">
                 <i class="fa fa-tag"></i> {{key}} <span class="badge">{{tags[key]['count']}}</span>

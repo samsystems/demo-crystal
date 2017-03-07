@@ -314,9 +314,10 @@ export class DocumentService {
     let result = {};
 
     //get all tags
-    if(!documents) {
+    if(!_.isArray(documents)) {
       documents = this.documents;
     }
+
     for (let i = 0; i < documents.length; i++) {
       const tags = _.get(documents[i], 'tags', []);
       if (_.isArray(tags))
@@ -338,34 +339,41 @@ export class DocumentService {
   }
 
   getDocumentsByTag(tag: string, documents?: Array<Document>): Document[] {
-    if(!documents) {
+    if(!_.isArray(documents)) {
       documents = this.documents;
     }
     return documents.filter((doc) => this.hasTag(doc, tag));
   }
 
   getDocumentsByRankId(rankId: string, documents?: Document[]): Document[] {
-    if (!documents)
+    if (!_.isArray(documents))
       documents = this.documents;
     return documents.filter((doc) => (doc.primary.findIndex((rank) => rank.id === rankId) != -1 || doc.secondary.findIndex((rank) => rank.id === rankId) != -1 ));
   }
 
-  getDocumentsRanks(documents?: Document[]) {
+  /**
+   * Return Primary responsibilities
+   * @param documents
+   * @returns {{}}
+   */
+  getDocumentsRanks(primary: boolean, documents?: Document[]):Object {
     let allRanks = [];
     let result = {};
 
     //get all ranks
-    if (!documents)
+    if (!_.isArray(documents))
       documents = this.documents;
 
     for (let i = 0; i < documents.length; i++){
-      if(_.isArray(documents[i].primary))
-        allRanks.push(...documents[i].primary);
+      if(primary){
+        if(_.isArray(documents[i].primary))
+          allRanks.push(...documents[i].primary);
+      }else{
+        if(_.isArray(documents[i].secondary))
+          allRanks.push(...documents[i].secondary);
+      }
 
-      if(_.isArray(documents[i].secondary))
-        allRanks.push(...documents[i].secondary);
     }
-
 
     // Mechanism to get group tags using dictionaries
     for (let i = 0; i < allRanks.length; i++) {
@@ -382,10 +390,30 @@ export class DocumentService {
     return result;
   }
 
-  getReleaseRanks(realeses: Release[]) {
-    let ranks = JSON.parse(localStorage.getItem('ranks'));
-    if (ranks)
-      return ranks;
-    return [];
+  getReleasesRanks(realeses: Release[]): Object {
+    let allRanks = [];
+    let result = {};
+
+    for (let i = 0; i < realeses.length; i++) {
+      allRanks.push(...realeses[i].document.primary);
+
+      if (_.isArray(realeses[i].document.secondary))
+        allRanks.push(...realeses[i].document.secondary);
+    }
+
+    // Mechanism to get group tags using dictionaries
+    for (let i = 0; i < allRanks.length; i++) {
+      const rank = allRanks[i];
+
+      if (result[rank.id])
+        result[rank.id].count += 1;
+      else
+        result[rank.id] = {
+          count: 1,
+          text: rank.text
+        }
+    }
+    return result;
   }
+
 }
