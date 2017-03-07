@@ -419,6 +419,7 @@ export class DocumentService {
 
   getPreviousVersion(document: Document) {
     let documents = this.documentReleases.filter((doc) => (document.id === doc.document.id && document.version != doc.version));
+    if(documents.length === 0) return document;
     let previousDocument: Release = documents[0];
     for(let doc of documents) {
       if(doc.date > previousDocument.date) {

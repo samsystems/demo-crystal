@@ -18,7 +18,7 @@
           </h1>
         </div>
         <div [froalaView]="document.content" *ngIf="!showChange"></div>
-        <div diff [right]="document.content" [left]="previousDocument.content" *ngIf="showChange"></div>
+        <div semanticDiff [right]="document.content" [left]="previousDocument.content" *ngIf="showChange"></div>
         <hr>
       </div>
     </div>
