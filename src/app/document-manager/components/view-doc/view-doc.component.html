@@ -8,7 +8,7 @@
           <ul class="tag-list" style="padding: 0">
 
             <li *ngFor="let key of ranksKey">
-              <a [routerLink]="['/documents/view']" [queryParams]="{ rank: key}">
+              <a [routerLink]="['/documents/view']" [queryParams]="{ rank: key, primary:true}">
                 {{ranks[key].text}} <span class="badge">{{ranks[key].count}}</span>
               </a>
             </li>
@@ -22,7 +22,7 @@
           <ul class="tag-list" style="padding: 0">
 
             <li *ngFor="let key of ranksKeySecondary">
-              <a [routerLink]="['/documents/view']" [queryParams]="{ rank: key}">
+              <a [routerLink]="['/documents/view']" [queryParams]="{ rank: key, primary:false}">
                 {{ranksSecondary[key].text}} <span class="badge">{{ranksSecondary[key].count}}</span>
               </a>
             </li>

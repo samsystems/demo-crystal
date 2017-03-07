@@ -345,10 +345,13 @@ export class DocumentService {
     return documents.filter((doc) => this.hasTag(doc, tag));
   }
 
-  getDocumentsByRankId(rankId: string, documents?: Document[]): Document[] {
+  getDocumentsByRankId(rankId: string, documents?: Document[], primary?: boolean): Document[] {
     if (!_.isArray(documents))
       documents = this.documents;
-    return documents.filter((doc) => (doc.primary.findIndex((rank) => rank.id === rankId) != -1 || doc.secondary.findIndex((rank) => rank.id === rankId) != -1 ));
+    if(primary)
+      return documents.filter((doc) => doc.primary.findIndex((rank) => rank.id === rankId) != -1);
+    else
+      return documents.filter((doc) => doc.secondary.findIndex((rank) => rank.id === rankId) != -1);
   }
 
   /**

@@ -45,7 +45,7 @@ export class ViewDocComponent implements OnInit {
       if(params['tag']) {
         this.documents = this.documentService.getDocumentsByTag(params['tag'], this.documents);
       } else if (params['rank']) {
-        this.documents = this.documentService.getDocumentsByRankId(params['rank'],this.documents);
+        this.documents = this.documentService.getDocumentsByRankId(params['rank'],this.documents, params['primary']==='true');
       }
     });
   }
