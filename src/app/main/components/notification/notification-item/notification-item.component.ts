@@ -7,7 +7,7 @@ import {Document} from '../../../../models/document';
   styleUrls: ['notification-item.component.css']
 })
 export class NotificationItemComponent implements OnInit {
-  @Input('item') document: Document;
+  @Input() document: Document;
   @Output() selectItem = new EventEmitter<Document>();
 
   selected: boolean;
