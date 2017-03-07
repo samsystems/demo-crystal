@@ -28,6 +28,29 @@ export class ViewDocComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    this.syncData();
+
+    this.tags = this.documentService.getTags(this.documents);
+    this.ranks = this.documentService.getDocumentsRanks(true, this.documents);
+    this.ranksSecondary = this.documentService.getDocumentsRanks(false, this.documents);
+
+    this.tagsKey = Object.keys(this.tags);
+    this.ranksKey = Object.keys(this.ranks);
+    this.ranksKeySecondary = Object.keys(this.ranksSecondary);
+
+    this.route.queryParams.subscribe(params => {
+      this.syncData();
+
+      if(params['tag']) {
+        this.documents = this.documentService.getDocumentsByTag(params['tag'], this.documents);
+      } else if (params['rank']) {
+        this.documents = this.documentService.getDocumentsByRankId(params['rank'],this.documents);
+      }
+    });
+  }
+
+  syncData(){
     const publishedDocs = this.documentService.getPublishedDocuments();
     const permanentDocs = this.documentService.getPermanentDocuments();
     this.documents = publishedDocs.concat(permanentDocs);
@@ -53,24 +76,6 @@ export class ViewDocComponent implements OnInit {
       this.documents.push(_.extend(v,{
         id: v['logRef']
       }));
-    });
-
-    this.tags = this.documentService.getTags(this.documents);
-    this.ranks = this.documentService.getDocumentsRanks(true, this.documents);
-    this.ranksSecondary = this.documentService.getDocumentsRanks(false, this.documents);
-
-    this.tagsKey = Object.keys(this.tags);
-    this.ranksKey = Object.keys(this.ranks);
-    this.ranksKeySecondary = Object.keys(this.ranksSecondary);
-
-    this.route.queryParams.subscribe(params => {
-
-      if(params['tag']) {
-        this.documents = this.documentService.getDocumentsByTag(params['tag'], this.documents);
-      } else if (params['rank']) {
-        this.documents = this.documentService.getDocumentsByRankId(params['rank'],this.documents);
-      }
-
     });
   }
 
