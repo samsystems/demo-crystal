@@ -1,10 +1,11 @@
 <form #docForm="ngForm" novalidate (ngSubmit)="createDoc(docForm)" (keydown.enter)="$event.preventDefault()">
 
   <div class="mail-box-header">
-    <div class="pull-right form-group m-r-xs">
-      <input placeholder="Version" name="version" class="input-sm form-control"
-             autocomplete="off" style="width: 80px" [(ngModel)]="initVersion">
-    </div>
+    <input-container class="pull-right form-group m-r-xs">
+      <input placeholder="Version" name="version" class="input-sm form-control" bsInput
+             autocomplete="off" style="width: 80px" [(ngModel)]="initVersion" required>
+    </input-container>
+    <label class="pull-right" style="margin-top: 0.3em;padding-right: 0.2em;">Version</label>
     <h2>
       New Document
     </h2>
@@ -12,33 +13,33 @@
   <div class="mail-box">
     <div class="mail-body">
       <div class="row no-margins">
-        <div class="col-md-6 form-group">
-          <label>Regulation name</label>
-          <input type="text" placeholder="Enter name" name="regulationName" class="form-control" ngModel required
+        <input-container class="col-md-6 form-group">
+          <label>Regulation name *</label>
+          <input type="text" bsInput placeholder="Enter name" name="regulationName" class="form-control" ngModel required
                  autocomplete="off">
-        </div>
-        <div class="col-md-6 form-group">
-          <label>Primary</label>
+        </input-container>
+        <input-container class="col-md-6 form-group">
+          <label>Primary *</label>
           <ng-select [multiple]="true" (data)="refreshPrimary($event)"
                      [items]="ranks"></ng-select>
-        </div>
+        </input-container>
       </div>
       <div class="row no-margins">
-        <div class="col-md-6 form-group">
-          <label>Secondary</label>
+        <input-container class="col-md-6 form-group">
+          <label>Secondary *</label>
           <ng-select [multiple]="true" (data)="refreshSecondary($event)"
                      [items]="ranks"></ng-select>
-        </div>
-        <div class="col-md-6 form-group">
-          <label>Tags</label>
+        </input-container>
+        <input-container class="col-md-6 form-group">
+          <label>Tags *</label>
           <input-tags name="freeTags" ngModel></input-tags>
-        </div>
+        </input-container>
       </div>
       <div class="row no-margins">
-        <div class="col-md-12 form-group">
-          <label>Summary</label>
-          <textarea name="comments" class="form-control" ngModel style="width: 100%" rows="3"></textarea>
-        </div>
+        <input-container class="col-md-12 form-group">
+          <label>Summary *</label>
+          <textarea bsInput required name="comments" class="form-control" ngModel style="width: 100%" rows="3"></textarea>
+        </input-container>
       </div>
     </div>
 
@@ -76,7 +77,7 @@
     </div>
 
     <div class="mail-body text-right tooltip-demo">
-      <button class="btn btn-sm btn-primary"><i class="fa fa-floppy-o"></i> Create</button>
+      <button [disabled]="docForm.invalid" class="btn btn-sm btn-primary"><i class="fa fa-floppy-o"></i> Create</button>
       <button type="reset" (click)="cancel()" class="btn btn-white btn-sm"><i class="fa fa-times"></i> Discard</button>
     </div>
   </div>

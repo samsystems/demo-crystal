@@ -8,6 +8,7 @@ import {FormsModule} from '@angular/forms';
 import {DatepickerModule, TooltipModule} from 'ng2-bootstrap';
 import {SelectModule} from 'ng2-select';
 import {EditAuditComponent} from './components/edit-audit/edit-audit.component';
+import {SharedModule} from '../shared/shared.module';
 
 @NgModule({
   imports: [
@@ -16,7 +17,8 @@ import {EditAuditComponent} from './components/edit-audit/edit-audit.component';
     AuditRoutesModule,
     DatepickerModule.forRoot(),
     TooltipModule.forRoot(),
-    SelectModule
+    SelectModule,
+    SharedModule
   ],
   declarations: [
     FormAuditComponent,
