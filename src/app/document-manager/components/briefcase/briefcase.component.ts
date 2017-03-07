@@ -33,10 +33,11 @@ export class BriefcaseComponent implements OnInit {
     this._ranksKeySecondary = Object.keys(this._ranksSecondary);
 
     this.route.queryParams.subscribe(params => {
+      this._documents = this.documentService.findAll();
       if(params['tag']) {
-        this._documents = this.documentService.getDocumentsByTag(params['tag']);
+        this._documents = this.documentService.getDocumentsByTag(params['tag'],this._documents);
       }else if(params['rank']) {
-        this._documents = this.documentService.getDocumentsByRankId(params['rank']);
+        this._documents = this.documentService.getDocumentsByRankId(params['rank'], this._documents, params['primary'] === 'true');
       }
     });
   }
